@@ -4,9 +4,9 @@ import { doc, getDoc, addDoc, updateDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
-import Button from '../Components/Button';
-import Select from '../Components/Select';
-import CustomTextField from '../Components/CustomTextField';
+import Button from '../MyComponents/Button';
+import Select from '../MyComponents/Select';
+import CustomTextField from '../MyComponents/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/form.module.css';
 

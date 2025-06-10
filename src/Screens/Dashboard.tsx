@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
-import Header from '../Components/Header';
-import ApplicationTable from '../Components/ApplicationTable';
-import KPICards from '../Components/KPICards';
+import Header from '../MyComponents/Header';
+import ApplicationTable from '../MyComponents/ApplicationTable';
+import KPICards from '../MyComponents/KPICards';
 import styles from '../styles/dashboard.module.css';
 
 const Dashboard: React.FC = () => {

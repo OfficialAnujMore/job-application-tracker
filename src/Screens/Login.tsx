@@ -7,8 +7,8 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/auth.module.css';
 import componentStyles from '../styles/components.module.css';
 import { motion } from 'framer-motion';
-import CustomButton from '../Components/CustomButton';
-import Loader from '../Components/Loader';
+import CustomButton from '../MyComponents/CustomButton';
+import Loader from '../MyComponents/Loader';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');

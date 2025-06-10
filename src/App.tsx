@@ -6,7 +6,7 @@ import Dashboard from './Screens/Dashboard';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import ApplicationForm from './Screens/ApplicationForm';
-import Splash from './Components/Splash';
+import Splash from './MyComponents/Splash';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
