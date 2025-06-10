@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, getDoc, addDoc, updateDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../Firebase/firebase';
@@ -29,7 +29,7 @@ const ApplicationForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchApplication = async (applicationId: string) => {
+  const fetchApplication = useCallback(async (applicationId: string) => {
     try {
       setLoading(true);
       const docRef = doc(db, 'applications', applicationId);
@@ -47,13 +47,13 @@ const ApplicationForm: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     if (isEditing && id) {
       fetchApplication(id);
     }
-  }, [id, isEditing, navigate]);
+  }, [id, isEditing, navigate, fetchApplication]);
 
   const validateDate = (date: string): boolean => {
     const selectedDate = new Date(date);

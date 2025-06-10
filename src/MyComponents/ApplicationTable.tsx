@@ -8,9 +8,6 @@ import {
   faSearch,
   faBriefcase,
   faCalendar,
-  faSort,
-  faSortUp,
-  faSortDown,
   faPen,
   faTrash,
   faCheck,
@@ -93,11 +90,6 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       </div>
     );
   }
-
-  const getSortIcon = (field: SortField) => {
-    if (sortField !== field) return faSort;
-    return sortOrder === 'asc' ? faSortUp : faSortDown;
-  };
 
   return (
     <div className={styles.tableContainer}>
