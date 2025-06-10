@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../Firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import styles from '../Styles/auth.module.css';
-import componentStyles from '../Styles/components.module.css';
+import styles from '../styles/auth.module.css';
+import componentStyles from '../styles/components.module.css';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');

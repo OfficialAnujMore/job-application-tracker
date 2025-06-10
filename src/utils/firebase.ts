@@ -11,8 +11,8 @@ import {
   DocumentReference,
   Timestamp
 } from 'firebase/firestore';
-import { auth, db } from '../Firebase/firebase';
-import { JobApplication } from '../Types';
+import { auth, db } from '../firebase/firebase';
+import { JobApplication } from '../types';
 import { validateJobApplication, ValidationError } from './validation';
 
 interface FirebaseError {

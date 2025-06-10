@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
-import styles from '../Styles/components.module.css';
+import styles from '../styles/components.module.css';
 
 interface CustomTextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;

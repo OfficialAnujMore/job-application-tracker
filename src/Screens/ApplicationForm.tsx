@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, getDoc, addDoc, updateDoc, collection } from 'firebase/firestore';
-import { auth, db } from '../Firebase/firebase';
-import { JobApplication } from '../Types';
-import { JOB_TYPES, APPLICATION_STATUS } from '../Constants';
+import { auth, db } from '../firebase/firebase';
+import { JobApplication } from '../types';
+import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../Components/Button';
 import Select from '../Components/Select';
 import CustomTextField from '../Components/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
-import styles from '../Styles/form.module.css';
+import styles from '../styles/form.module.css';
 
 const ApplicationForm: React.FC = () => {
   const navigate = useNavigate();

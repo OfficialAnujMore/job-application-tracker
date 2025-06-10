@@ -1,6 +1,6 @@
 import React from 'react';
-import { JobApplication } from '../Types';
-import styles from '../Styles/kpiCards.module.css';
+import { JobApplication } from '../types';
+import styles from '../styles/kpiCards.module.css';
 
 interface KPICardsProps {
   applications: JobApplication[];

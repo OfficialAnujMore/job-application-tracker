@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../Firebase/firebase';
-import { UserProfile } from '../Types';
+import { auth, db } from '../firebase/firebase';
+import { UserProfile } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBriefcase,
@@ -10,7 +10,7 @@ import {
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 import ProfileMenu from './ProfileMenu';
-import styles from '../Styles/header.module.css';
+import styles from '../styles/header.module.css';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();

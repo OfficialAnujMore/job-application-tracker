@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../Firebase/firebase';
-import { JobApplication } from '../Types';
+import { db } from '../firebase/firebase';
+import { JobApplication } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
@@ -16,7 +16,7 @@ import {
   faCheck,
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
-import styles from '../Styles/applicationTable.module.css';
+import styles from '../styles/applicationTable.module.css';
 
 interface ApplicationTableProps {
   applications: JobApplication[];

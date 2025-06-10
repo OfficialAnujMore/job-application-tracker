@@ -1,4 +1,4 @@
-import { JobApplication } from '../Types';
+import { JobApplication } from '../types';
 
 export interface ValidationError {
   field: string;
