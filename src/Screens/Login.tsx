@@ -1,78 +1,52 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../Config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/auth.module.css';
 import componentStyles from '../styles/components.module.css';
+import { motion } from 'framer-motion';
+import CustomButton from '../Components/CustomButton';
+import Loader from '../Components/Loader';
 
-const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
-      await setDoc(doc(db, 'users', userCredential.user.uid), {
-        firstName,
-        lastName,
-        email,
-        createdAt: new Date().toISOString(),
-        lastLogin: new Date().toISOString()
-      });
-
+      await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Failed to register');
+      setError(err.message || 'Failed to login');
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+    >
       <div className={styles.formContainer}>
-        <h1>Create Account</h1>
-        <p className={styles.subtitle}>Start tracking your job applications today</p>
+        <h1>Welcome Back</h1>
+        <p className={styles.subtitle}>Sign in to continue tracking your job applications</p>
         
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.nameFields}>
-            <div className={styles.formGroup}>
-              <label htmlFor="firstName">First Name</label>
-              <input
-                id="firstName"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                className={componentStyles.input}
-                placeholder="Enter your first name"
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                id="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                className={componentStyles.input}
-                placeholder="Enter your last name"
-              />
-            </div>
-          </div>
-
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input
@@ -114,20 +88,20 @@ const Register = () => {
 
           {error && <p className={styles.error}>{error}</p>}
 
-          <button type="submit" className={componentStyles.button}>
-            Register
-          </button>
+          <CustomButton type="submit" fullWidth>
+            Login
+          </CustomButton>
         </form>
 
         <p className={styles.footer}>
-          Already have an account?{' '}
-          <Link to="/login" className={styles.link}>
-            Login here
+          Don't have an account?{' '}
+          <Link to="/register" className={styles.link}>
+            Register here
           </Link>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default Register; 
+export default Login; 

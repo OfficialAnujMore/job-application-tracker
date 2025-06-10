@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './config/firebase';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ApplicationForm from './pages/ApplicationForm';
-import Splash from './components/Splash';
+import { auth } from './Config/firebase';
+import Dashboard from './Screens/Dashboard';
+import Login from './Screens/Login';
+import Register from './Screens/Register';
+import ApplicationForm from './Screens/ApplicationForm';
+import Splash from './Components/Splash';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
