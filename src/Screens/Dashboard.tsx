@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { auth, db } from '../firebase/firebase';
+import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import Header from '../Components/Header';
 import ApplicationTable from '../Components/ApplicationTable';

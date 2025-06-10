@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
+import { auth } from '../Firebase/firebase';
 import { UserProfile } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';

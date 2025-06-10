@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

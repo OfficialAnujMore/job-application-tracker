@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, getDoc, addDoc, updateDoc, collection } from 'firebase/firestore';
-import { auth, db } from '../firebase/firebase';
+import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../Components/Button';
