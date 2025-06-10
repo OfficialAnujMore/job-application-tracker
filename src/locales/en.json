@@ -1,0 +1,94 @@
+{
+  "app": {
+    "title": "Job Tracker",
+    "navigation": {
+      "dashboard": "Dashboard",
+      "addApplication": "Add Application"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to continue tracking your job applications",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submitButton": "Login",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register here"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Start tracking your job applications today",
+      "firstNameLabel": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastNameLabel": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submitButton": "Register",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login here"
+    }
+  },
+  "dashboard": {
+    "kpi": {
+      "totalApplications": "Total Applications",
+      "interviewStage": "Interview Stage",
+      "rejections": "Rejections",
+      "offers": "Offers"
+    },
+    "table": {
+      "empty": {
+        "title": "No Applications Found",
+        "message": "Start by adding your first job application!"
+      },
+      "headers": {
+        "company": "Company",
+        "jobTitle": "Job Title",
+        "type": "Type",
+        "location": "Location",
+        "dateApplied": "Date Applied",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "applied": "Applied",
+        "interviewing": "Interviewing",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "ghosted": "Ghosted"
+      },
+      "actions": {
+        "view": "View application details",
+        "edit": "Edit application",
+        "delete": "Delete application"
+      }
+    },
+    "filters": {
+      "search": "Search by company...",
+      "jobType": {
+        "label": "All Job Types",
+        "fullTime": "Full-time",
+        "partTime": "Part-time",
+        "contract": "Contract",
+        "internship": "Internship"
+      },
+      "dateRange": {
+        "start": "Start Date",
+        "end": "End Date"
+      }
+    }
+  },
+  "form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Invalid email address",
+      "password": "Password must be at least 6 characters",
+      "passwordMatch": "Passwords do not match"
+    }
+  }
+} 
