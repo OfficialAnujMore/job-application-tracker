@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, getDoc, addDoc, updateDoc, collection } from 'firebase/firestore';
-import { auth, db } from '../Config/firebase';
-import { JobApplication } from '../Types';
-import { JOB_TYPES, APPLICATION_STATUS } from '../Constants';
-import Button from '../Components/Button';
-import Select from '../Components/Select';
-import CustomTextField from '../Components/CustomTextField';
+import { auth, db } from '../Firebase/firebase';
+import { JobApplication } from '../types';
+import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
+import Button from '../MyComponents/Button';
+import Select from '../MyComponents/Select';
+import CustomTextField from '../MyComponents/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/form.module.css';
 
@@ -29,7 +29,7 @@ const ApplicationForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchApplication = async (applicationId: string) => {
+  const fetchApplication = useCallback(async (applicationId: string) => {
     try {
       setLoading(true);
       const docRef = doc(db, 'applications', applicationId);
@@ -47,13 +47,13 @@ const ApplicationForm: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     if (isEditing && id) {
       fetchApplication(id);
     }
-  }, [id, isEditing, navigate]);
+  }, [id, isEditing, navigate, fetchApplication]);
 
   const validateDate = (date: string): boolean => {
     const selectedDate = new Date(date);

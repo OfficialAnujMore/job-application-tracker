@@ -1,16 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../Config/firebase';
-import { JobApplication } from '../Types';
+import { db } from '../Firebase/firebase';
+import { JobApplication } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
   faBriefcase,
   faCalendar,
-  faSort,
-  faSortUp,
-  faSortDown,
   faPen,
   faTrash,
   faCheck,
@@ -93,11 +90,6 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       </div>
     );
   }
-
-  const getSortIcon = (field: SortField) => {
-    if (sortField !== field) return faSort;
-    return sortOrder === 'asc' ? faSortUp : faSortDown;
-  };
 
   return (
     <div className={styles.tableContainer}>

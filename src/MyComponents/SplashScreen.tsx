@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../Contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/splashScreen.module.css';
 
 const SplashScreen: React.FC = () => {
@@ -12,7 +12,7 @@ const SplashScreen: React.FC = () => {
     const timer = setTimeout(() => {
       setAnimationComplete(true);
       navigate(currentUser ? '/dashboard' : '/login');
-    }, 2000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [currentUser, navigate]);
