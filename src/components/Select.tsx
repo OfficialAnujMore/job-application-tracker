@@ -1,5 +1,5 @@
 import React, { SelectHTMLAttributes } from 'react';
-import styles from '../styles/components.module.css';
+import styles from '../Styles/components.module.css';
 
 interface Option {
   value: string;
