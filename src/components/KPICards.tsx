@@ -1,5 +1,5 @@
 import React from 'react';
-import { JobApplication } from '../types';
+import { JobApplication } from '../Types';
 import styles from '../styles/kpiCards.module.css';
 
 interface KPICardsProps {

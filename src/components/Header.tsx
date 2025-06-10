@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../config/firebase';
-import { UserProfile } from '../types';
+import { auth, db } from '../Config/firebase';
+import { UserProfile } from '../Types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBriefcase,

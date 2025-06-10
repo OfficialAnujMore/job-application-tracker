@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../Contexts/AuthContext';
 import styles from '../styles/splashScreen.module.css';
 
 const SplashScreen: React.FC = () => {

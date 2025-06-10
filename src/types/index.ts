@@ -1,5 +1,5 @@
 import React from 'react';
-import { JobType, ApplicationStatus } from '../constants';
+import { JobType, ApplicationStatus } from '../Constants';
 
 export interface User {
   id: string;
