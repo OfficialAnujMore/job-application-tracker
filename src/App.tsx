@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
-import Dashboard from './screens/Dashboard';
-import Login from './screens/Login';
-import Register from './screens/Register';
-import ApplicationForm from './screens/ApplicationForm';
+import Dashboard from './Screens/Dashboard';
+import Login from './Screens/Login';
+import Register from './Screens/Register';
+import ApplicationForm from './Screens/ApplicationForm';
 import Splash from './Components/Splash';
 
 const App: React.FC = () => {
