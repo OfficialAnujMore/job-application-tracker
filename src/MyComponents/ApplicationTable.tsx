@@ -184,14 +184,14 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
             className={styles.dateInput}
           />
         </div>
-        <div className={styles.actionButtons}>
+        {/* <div className={styles.actionButtons}>
           <button
             onClick={resetFilters}
             className={styles.resetButton}
-            title={strings.dashboard.filters.search}
+            title={strings.dashboard.filters.revert}
           >
             <FontAwesomeIcon icon={faUndo} className={styles.icon} />
-            {strings.dashboard.filters.search}
+            {strings.dashboard.filters.revert}
           </button>
           <button
             onClick={exportToExcel}
@@ -201,7 +201,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
             <FontAwesomeIcon icon={faFileExcel} className={styles.icon} />
             {strings.dashboard.table.actions.export}
           </button>
-        </div>
+        </div> */}
       </div>
 
       <table className={styles.table}>
