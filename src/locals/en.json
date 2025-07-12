@@ -3,6 +3,8 @@
     "title": "Job Tracker",
     "navigation": {
       "dashboard": "Dashboard",
+      "home": "Home",
+      "analytics": "Analytics",
       "addApplication": "Add Application"
     }
   },
@@ -47,13 +49,21 @@
         "message": "Start by adding your first job application!"
       },
       "headers": {
-        "company": "Company",
+        "company": "Company Name",
         "jobTitle": "Job Title",
-        "type": "Type",
+        "type": "Job Type",
         "location": "Location",
         "dateApplied": "Date Applied",
         "status": "Status",
-        "actions": "Actions"
+        "actions": "Actions",
+        "jobUrl": "Job URL",
+        "jobUrlPlaceholder": "https://example.com/job-posting",
+        "meetingUrl": "Meeting URL",
+        "meetingUrlPlaceholder": "https://meet.example.com",
+        "jobDescription": "Job Description",
+        "jobDescriptionPlaceholder": "Enter the job description",
+        "notes": "Notes",
+        "notesPlaceholder": "Add any additional notes or comments"
       },
       "status": {
         "applied": "Applied",
@@ -64,12 +74,21 @@
       },
       "actions": {
         "view": "View application details",
-        "edit": "Edit application",
-        "delete": "Delete application"
+        "edit": "Edit Application",
+        "editSubtitle": "Update your job application details",
+        "add": "Add Application",
+        "addSubtitle": "Track your new job application",
+        "update": "Update Application",
+        "delete": "Delete application",
+        "deleteConfirm": "Are you sure you want to delete this application? This action cannot be reverted.",
+        "to": "to",
+        "export": "Export",
+        "exportTitle": "Export to Excel"
       }
     },
     "filters": {
       "search": "Search by company...",
+      "revert": "Revert",
       "jobType": {
         "label": "All Job Types",
         "fullTime": "Full-time",
@@ -88,7 +107,76 @@
       "required": "This field is required",
       "email": "Invalid email address",
       "password": "Password must be at least 6 characters",
-      "passwordMatch": "Passwords do not match"
+      "passwordMatch": "Passwords do not match",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
     }
+  },
+  "toolbar": {
+    "bold": "B",
+    "boldTooltip": "Bold (Ctrl+B)",
+    "italic": "I",
+    "italicTooltip": "Italic (Ctrl+I)",
+    "underline": "U",
+    "underlineTooltip": "Underline (Ctrl+U)",
+    "textColor": "A",
+    "textColorTooltip": "Text Color",
+    "highlightColor": "H",
+    "highlightColorTooltip": "Highlight Color",
+    "bulletList": "• List",
+    "bulletListTooltip": "Bullet List",
+    "numberedList": "1. List",
+    "numberedListTooltip": "Numbered List",
+    "alignLeft": "←",
+    "alignLeftTooltip": "Align Left",
+    "alignCenter": "↔",
+    "alignCenterTooltip": "Align Center",
+    "alignRight": "→",
+    "alignRightTooltip": "Align Right",
+    "insertLink": "🔗",
+    "insertLinkTooltip": "Insert Link",
+    "removeLink": "🔗✖",
+    "removeLinkTooltip": "Remove Link",
+    "fontSize": "A+",
+    "fontSizeTooltip": "Font Size",
+    "clearFormatting": "🗑",
+    "clearFormattingTooltip": "Clear Formatting"
+  },
+  "linkDialog": {
+    "insertLinkTitle": "Insert Link",
+    "linkTextPlaceholder": "Link text",
+    "linkUrlPlaceholder": "URL (https://example.com)",
+    "insertButton": "Insert",
+    "cancelButton": "Cancel"
+  },
+  "urlInput": {
+    "placeholder": "https://example.com"
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "metrics": {
+      "totalApplications": "Total Applications",
+      "successRate": "Success Rate",
+      "avgResponseTime": "Avg Response Time",
+      "activeApplications": "Active Applications"
+    },
+    "sections": {
+      "statusDistribution": "Application Status",
+      "jobTypeDistribution": "Job Type Distribution",
+      "topCompanies": "Top Companies Applied To"
+    }
+  },
+  "splash": {
+    "loading": "Loading..."
+  },
+  "loader": {
+    "loading": "Loading..."
+  },
+  "viewApplication": {
+    "backToHome": "Back to Home",
+    "applicationNotFound": "Application not found",
+    "loadingApplication": "Loading application..."
   }
 } 

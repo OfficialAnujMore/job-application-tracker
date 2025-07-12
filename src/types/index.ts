@@ -25,7 +25,9 @@ export interface JobApplication {
   dateApplied: string;
   status: ApplicationStatus;
   jobUrl?: string;
-  meetingUrls: string[];
+  meetingUrl?: string;
+  otherUrls?: Array<{ name: string; url: string }>;
+  jobDescription?: string;
   notes?: string;
   createdAt: string;
   updatedAt: string;

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/splash.module.css';
+import { strings } from '../locals';
 
 const Splash: React.FC = () => {
   return (

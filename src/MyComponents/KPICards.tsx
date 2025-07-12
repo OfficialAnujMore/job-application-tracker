@@ -1,6 +1,7 @@
 import React from 'react';
 import { JobApplication } from '../types';
 import styles from '../styles/kpiCards.module.css';
+import { strings } from '../locals';
 
 interface KPICardsProps {
   applications: JobApplication[];
@@ -26,19 +27,19 @@ const KPICards: React.FC<KPICardsProps> = ({ applications }) => {
   return (
     <div className={styles.kpiContainer}>
       <div className={styles.kpiCard}>
-        <h3>Total Applications</h3>
+        <h3>{strings.dashboard.kpi.totalApplications}</h3>
         <p>{kpis.total}</p>
       </div>
       <div className={styles.kpiCard}>
-        <h3>Interview Stage</h3>
+        <h3>{strings.dashboard.kpi.interviewStage}</h3>
         <p>{kpis.interviewing}</p>
       </div>
       <div className={styles.kpiCard}>
-        <h3>Rejections</h3>
+        <h3>{strings.dashboard.kpi.rejections}</h3>
         <p>{kpis.rejected}</p>
       </div>
       <div className={styles.kpiCard}>
-        <h3>Offers</h3>
+        <h3>{strings.dashboard.kpi.offers}</h3>
         <p>{kpis.accepted}</p>
       </div>
     </div>

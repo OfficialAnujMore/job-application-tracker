@@ -10,7 +10,7 @@ import Splash from '../MyComponents/Splash';
 import styles from '../styles/dashboard.module.css';
 import { strings } from '../locals';
 
-const Dashboard: React.FC = () => {
+const Home: React.FC = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -57,4 +57,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard; 
+export default Home; 
