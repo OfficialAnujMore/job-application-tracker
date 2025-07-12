@@ -26,8 +26,10 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1>Welcome Back</h1>
-        <p className={styles.subtitle}>Sign in to continue tracking your job applications</p>
+        <div className={styles.header}>
+          <h1>Welcome Back</h1>
+          <p className={styles.subtitle}>Sign in to continue tracking your job applications</p>
+        </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
             <TextInput
@@ -54,7 +56,7 @@ const Login = () => {
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <button type="submit" className={componentStyles.button}>
+          <button type="submit" className={styles.submitButton}>
             Login
           </button>
         </form>

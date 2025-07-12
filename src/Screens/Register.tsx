@@ -35,8 +35,10 @@ const Register = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1>Create Account</h1>
-        <p className={styles.subtitle}>Start tracking your job applications today</p>
+        <div className={styles.header}>
+          <h1>Create Account</h1>
+          <p className={styles.subtitle}>Start tracking your job applications today</p>
+        </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.nameFields}>
             <div className={styles.formGroup}>
@@ -85,7 +87,7 @@ const Register = () => {
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <button type="submit" className={componentStyles.button}>
+          <button type="submit" className={styles.submitButton}>
             Register
           </button>
         </form>

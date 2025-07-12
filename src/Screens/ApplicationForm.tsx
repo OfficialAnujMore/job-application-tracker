@@ -157,129 +157,134 @@ const ApplicationForm: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1>{isEditing ? 'Edit Application' : 'Add New Application'}</h1>
-      {error && <div className={styles.error}>{error}</div>}
-      <form onSubmit={handleSubmit} className={`${styles.form} ${loading ? styles.loading : ''}`}>
-        <div className={styles.formGrid}>
-          <TextInput
-            label="Company Name"
-            value={formData.companyName || ''}
-            onChange={e => handleInputChange('companyName', e.target.value)}
-            required
-          />
-          <TextInput
-            label="Job Title"
-            value={formData.jobTitle || ''}
-            onChange={e => handleInputChange('jobTitle', e.target.value)}
-            required
-          />
-          <Select
-            label="Job Type"
-            options={JOB_TYPES}
-            value={formData.jobType || 'full-time'}
-            onChange={(value) => handleInputChange('jobType', value)}
-            required
-          />
-          <TextInput
-            label="Location"
-            value={formData.location || ''}
-            onChange={e => handleInputChange('location', e.target.value)}
-            required
-          />
-          <DatePicker
-            label="Date Applied"
-            value={formData.dateApplied || ''}
-            onChange={e => handleInputChange('dateApplied', e.target.value)}
-            max={new Date().toISOString().split('T')[0]}
-            required
-          />
-          <Select
-            label="Status"
-            options={APPLICATION_STATUS}
-            value={formData.status || 'applied'}
-            onChange={(value) => handleInputChange('status', value)}
-            required
-          />
-          <UrlInput
-            label="Job URL"
-            value={formData.jobUrl || ''}
-            onChange={e => handleInputChange('jobUrl', e.target.value)}
-            placeholder="https://example.com/job-posting"
-          />
-          <UrlInput
-            label="Meeting URL"
-            value={formData.meetingUrl || ''}
-            onChange={e => handleInputChange('meetingUrl', e.target.value)}
-            placeholder="https://meet.example.com"
-          />
-          <div className={styles.otherUrls}>
-            <label>Other URLs</label>
-            {formData.otherUrls?.map((urlItem, index) => (
-              <div key={index} className={styles.otherUrlInput}>
-                <div className={styles.urlFields}>
-                  <TextInput
-                    label={`URL Name ${index + 1}`}
-                    value={urlItem.name}
-                    onChange={e => handleOtherUrlChange(index, 'name', e.target.value)}
-                    placeholder="e.g., Company Website, LinkedIn"
-                  />
-                  <UrlInput
-                    label={`URL ${index + 1}`}
-                    value={urlItem.url}
-                    onChange={e => handleOtherUrlChange(index, 'url', e.target.value)}
-                    placeholder="https://example.com"
-                  />
-                </div>
-                {index > 0 && (
-                  <Button
-                    type="button"
-                    variant="danger"
-                    icon={faTimes}
-                    onClick={() => removeOtherUrl(index)}
-                    className={styles.removeButton}
-                  />
-                )}
-              </div>
-            ))}
-            <Button
-              type="button"
-              variant="secondary"
-              icon={faPlus}
-              onClick={addOtherUrl}
-              className={styles.addButton}
-            >
-              Add Other URL
-            </Button>
-          </div>
-          <div className={styles.textAreaSection}>
-            <RichTextEditor
-              label="Job Description"
-              value={formData.jobDescription || ''}
-              onChange={(value) => handleInputChange('jobDescription', value)}
-              placeholder="Enter the job description"
-            />
-            <TextArea
-              label="Notes"
-              value={formData.notes || ''}
-              onChange={e => handleInputChange('notes', e.target.value)}
-              placeholder="Add any additional notes or comments"
-            />
-          </div>
-          <div className={styles.buttons}>
-            <Button type="submit" icon={faSave} isLoading={loading}>
-              {isEditing ? 'Update Application' : 'Add Application'}
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              icon={faCancel}
-              onClick={() => navigate('/dashboard')}
-            >
-              Cancel
-            </Button>
-          </div>
+      <div className={styles.formContainer}>
+        <div className={styles.header}>
+          <h1>{isEditing ? 'Edit Application' : 'Add New Application'}</h1>
+          <p>{isEditing ? 'Update your job application details' : 'Track your new job application'}</p>
         </div>
-      </form>
+        {error && <div className={styles.error}>{error}</div>}
+        <form onSubmit={handleSubmit} className={`${styles.form} ${loading ? styles.loading : ''}`}>
+          <div className={styles.formGrid}>
+            <TextInput
+              label="Company Name"
+              value={formData.companyName || ''}
+              onChange={e => handleInputChange('companyName', e.target.value)}
+              required
+            />
+            <TextInput
+              label="Job Title"
+              value={formData.jobTitle || ''}
+              onChange={e => handleInputChange('jobTitle', e.target.value)}
+              required
+            />
+            <Select
+              label="Job Type"
+              options={JOB_TYPES}
+              value={formData.jobType || 'full-time'}
+              onChange={(value) => handleInputChange('jobType', value)}
+              required
+            />
+            <TextInput
+              label="Location"
+              value={formData.location || ''}
+              onChange={e => handleInputChange('location', e.target.value)}
+              required
+            />
+            <DatePicker
+              label="Date Applied"
+              value={formData.dateApplied || ''}
+              onChange={e => handleInputChange('dateApplied', e.target.value)}
+              max={new Date().toISOString().split('T')[0]}
+              required
+            />
+            <Select
+              label="Status"
+              options={APPLICATION_STATUS}
+              value={formData.status || 'applied'}
+              onChange={(value) => handleInputChange('status', value)}
+              required
+            />
+            <UrlInput
+              label="Job URL"
+              value={formData.jobUrl || ''}
+              onChange={e => handleInputChange('jobUrl', e.target.value)}
+              placeholder="https://example.com/job-posting"
+            />
+            <UrlInput
+              label="Meeting URL"
+              value={formData.meetingUrl || ''}
+              onChange={e => handleInputChange('meetingUrl', e.target.value)}
+              placeholder="https://meet.example.com"
+            />
+            <div className={styles.otherUrls}>
+              <label>Other URLs</label>
+              {formData.otherUrls?.map((urlItem, index) => (
+                <div key={index} className={styles.otherUrlInput}>
+                  <div className={styles.urlFields}>
+                    <TextInput
+                      label={`URL Name ${index + 1}`}
+                      value={urlItem.name}
+                      onChange={e => handleOtherUrlChange(index, 'name', e.target.value)}
+                      placeholder="e.g., Company Website, LinkedIn"
+                    />
+                    <UrlInput
+                      label={`URL ${index + 1}`}
+                      value={urlItem.url}
+                      onChange={e => handleOtherUrlChange(index, 'url', e.target.value)}
+                      placeholder="https://example.com"
+                    />
+                  </div>
+                  {index > 0 && (
+                    <Button
+                      type="button"
+                      variant="danger"
+                      icon={faTimes}
+                      onClick={() => removeOtherUrl(index)}
+                      className={styles.removeButton}
+                    />
+                  )}
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="secondary"
+                icon={faPlus}
+                onClick={addOtherUrl}
+                className={styles.addButton}
+              >
+                Add Other URL
+              </Button>
+            </div>
+            <div className={styles.textAreaSection}>
+              <RichTextEditor
+                label="Job Description"
+                value={formData.jobDescription || ''}
+                onChange={(value) => handleInputChange('jobDescription', value)}
+                placeholder="Enter the job description"
+              />
+              <TextArea
+                label="Notes"
+                value={formData.notes || ''}
+                onChange={e => handleInputChange('notes', e.target.value)}
+                placeholder="Add any additional notes or comments"
+              />
+            </div>
+            <div className={styles.buttons}>
+              <Button type="submit" icon={faSave} isLoading={loading}>
+                {isEditing ? 'Update Application' : 'Add Application'}
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                icon={faCancel}
+                onClick={() => navigate('/dashboard')}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
