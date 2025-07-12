@@ -20,6 +20,7 @@ import styles from '../styles/applicationTable.module.css';
 import TextInput from './TextInput';
 import DatePicker from './DatePicker';
 import Select from './Select';
+import CustomModal from './CustomModal';
 
 interface ApplicationTableProps {
   applications: JobApplication[];
@@ -37,6 +38,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
     try {
@@ -85,6 +88,22 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     
     const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
     XLSX.writeFile(wb, fileName);
+  };
+
+  const handleDeleteRequest = (id: string) => {
+    setPendingDeleteId(id);
+    setModalOpen(true);
+  };
+  const handleDeleteConfirm = async () => {
+    if (pendingDeleteId) {
+      await handleDelete(pendingDeleteId);
+      setPendingDeleteId(null);
+      setModalOpen(false);
+    }
+  };
+  const handleDeleteCancel = () => {
+    setPendingDeleteId(null);
+    setModalOpen(false);
   };
 
   const filteredAndSortedApplications = useMemo(() => {
@@ -229,37 +248,27 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
                 >
                   <FontAwesomeIcon icon={faPen} className={styles.icon} />
                 </button>
-                {deleteConfirm === app.id ? (
-                  <>
-                    <button
-                      onClick={() => handleDelete(app.id)}
-                      className={`${styles.actionButton} ${styles.confirmDelete}`}
-                      title="Confirm Delete"
-                    >
-                      <FontAwesomeIcon icon={faCheck} className={styles.icon} />
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirm(null)}
-                      className={`${styles.actionButton} ${styles.cancelDelete}`}
-                      title="Cancel"
-                    >
-                      <FontAwesomeIcon icon={faTimes} className={styles.icon} />
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => setDeleteConfirm(app.id)}
-                    className={styles.actionButton}
-                    title="Delete"
-                  >
-                    <FontAwesomeIcon icon={faTrash} className={styles.icon} />
-                  </button>
-                )}
+                <button
+                  onClick={() => handleDeleteRequest(app.id)}
+                  className={styles.actionButton}
+                  title="Delete"
+                >
+                  <FontAwesomeIcon icon={faTrash} className={styles.icon} />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <CustomModal
+        isOpen={modalOpen}
+        title="Delete Application?"
+        message="Are you sure you want to delete this application? This action cannot be reverted."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </div>
   );
 };

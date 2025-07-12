@@ -61,17 +61,24 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo} onClick={() => navigate('/dashboard')}>
+      <div className={styles.logo} onClick={() => navigate('/home')}>
         <FontAwesomeIcon icon={faBriefcase} className={styles.logoIcon} />
         <span>Job Tracker</span>
       </div>
       <nav className={styles.nav}>
         <button
           className={styles.navButton}
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/home')}
         >
           <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
-          <span>Dashboard</span>
+          <span>Home</span>
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => navigate('/analytics')}
+        >
+          <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
+          <span>Analytics</span>
         </button>
         <button
           className={styles.navButton}

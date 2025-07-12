@@ -29,11 +29,11 @@ const ViewApplication: React.FC = () => {
           setApplication({ ...data, id: docSnap.id });
         } else {
           setError('Application not found or access denied');
-          navigate('/dashboard');
+          navigate('/home');
         }
       } else {
         setError('Application not found');
-        navigate('/dashboard');
+        navigate('/home');
       }
     } catch (err) {
       console.error('Error fetching application:', err);
@@ -84,8 +84,8 @@ const ViewApplication: React.FC = () => {
     return (
       <div className={styles.container}>
         <div className={styles.error}>{error}</div>
-        <Button onClick={() => navigate('/dashboard')} variant="secondary">
-          Back to Dashboard
+        <Button onClick={() => navigate('/home')} variant="secondary">
+          Back to Home
         </Button>
       </div>
     );
@@ -95,8 +95,8 @@ const ViewApplication: React.FC = () => {
     return (
       <div className={styles.container}>
         <div className={styles.error}>Application not found</div>
-        <Button onClick={() => navigate('/dashboard')} variant="secondary">
-          Back to Dashboard
+        <Button onClick={() => navigate('/home')} variant="secondary">
+          Back to Home
         </Button>
       </div>
     );
@@ -106,11 +106,11 @@ const ViewApplication: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <Button
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/home')}
           variant="secondary"
           icon={faArrowLeft}
         >
-          Back to Dashboard
+          Back to Home
         </Button>
         <div className={styles.actions}>
           <Button

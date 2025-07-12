@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebase';
-import Dashboard from './Screens/Dashboard';
+import Home from './Screens/Home';
+import Analytics from './Screens/Analytics';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import ApplicationForm from './Screens/ApplicationForm';
@@ -31,19 +32,23 @@ const App: React.FC = () => {
       <Routes>
         <Route
           path="/"
-          element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+          element={user ? <Navigate to="/home" /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
-          element={user ? <Navigate to="/dashboard" /> : <Login />}
+          element={user ? <Navigate to="/home" /> : <Login />}
         />
         <Route
           path="/register"
-          element={user ? <Navigate to="/dashboard" /> : <Register />}
+          element={user ? <Navigate to="/home" /> : <Register />}
         />
         <Route
-          path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" />}
+          path="/home"
+          element={user ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/analytics"
+          element={user ? <Analytics /> : <Navigate to="/login" />}
         />
         <Route
           path="/application/new"

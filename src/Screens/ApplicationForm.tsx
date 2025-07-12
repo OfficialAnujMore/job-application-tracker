@@ -45,7 +45,7 @@ const ApplicationForm: React.FC = () => {
         setFormData(docSnap.data() as JobApplication);
       } else {
         setError('Application not found');
-        navigate('/dashboard');
+        navigate('/home');
       }
     } catch (err) {
       console.error('Error fetching application:', err);
@@ -126,7 +126,7 @@ const ApplicationForm: React.FC = () => {
         await addDoc(collection(db, 'applications'), applicationData);
       }
 
-      navigate('/dashboard');
+              navigate('/home');
     } catch (err) {
       console.error('Error saving application:', err);
       setError('Failed to save application. Please try again.');
@@ -277,7 +277,7 @@ const ApplicationForm: React.FC = () => {
                 type="button"
                 variant="secondary"
                 icon={faCancel}
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/home')}
               >
                 Cancel
               </Button>

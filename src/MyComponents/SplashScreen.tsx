@@ -11,7 +11,7 @@ const SplashScreen: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimationComplete(true);
-      navigate(currentUser ? '/dashboard' : '/login');
+              navigate(currentUser ? '/home' : '/login');
     }, 5000);
 
     return () => clearTimeout(timer);

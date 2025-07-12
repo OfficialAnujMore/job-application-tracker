@@ -26,7 +26,7 @@ const Register = () => {
         createdAt: new Date().toISOString(),
         lastLogin: new Date().toISOString()
       });
-      navigate('/dashboard');
+              navigate('/home');
     } catch (err: any) {
       setError(err.message || 'Failed to register');
     }
