@@ -2,6 +2,20 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: linear-gradient(45deg, rgba(148, 163, 184, 0.05), rgba(203, 213, 225, 0.05));
+  border-radius: 1rem;
+  z-index: -1;
+  filter: blur(20px);
 }
 
 .header {
@@ -38,11 +52,12 @@
 }
 
 .form {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-top: none;
   position: relative;
 }
