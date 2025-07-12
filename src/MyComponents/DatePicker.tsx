@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../styles/components.module.css';
-import { strings } from '../locals';
 
 interface DatePickerProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
