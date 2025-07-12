@@ -5,17 +5,10 @@ import { db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch,
-  faBriefcase,
-  faCalendar,
   faPen,
   faTrash,
-  faCheck,
-  faTimes,
-  faFileExcel,
-  faUndo
 } from '@fortawesome/free-solid-svg-icons';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import styles from '../styles/applicationTable.module.css';
 import TextInput from './TextInput';
 import DatePicker from './DatePicker';
@@ -31,7 +24,7 @@ type SortField = 'companyName' | 'dateApplied' | 'status' | 'jobType';
 type SortOrder = 'asc' | 'desc';
 
 const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => {
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  // const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [sortField, setSortField] = useState<SortField>('dateApplied');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +38,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
   const handleDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'applications', id));
-      setDeleteConfirm(null);
+      // setDeleteConfirm(null);
     } catch (error) {
       console.error('Error deleting application:', error);
     }
@@ -60,36 +53,36 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     }
   };
 
-  const resetFilters = () => {
-    setSearchTerm('');
-    setFilterJobType('');
-    setStartDate('');
-    setEndDate('');
-  };
+  // const resetFilters = () => {
+  //   setSearchTerm('');
+  //   setFilterJobType('');
+  //   setStartDate('');
+  //   setEndDate('');
+  // };
 
-  const exportToExcel = () => {
-    const dataToExport = filteredAndSortedApplications.map(app => ({
-      'Company Name': app.companyName,
-      'Job Title': app.jobTitle,
-      'Job Type': app.jobType,
-      'Location': app.location,
-      'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
-      'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
-      'Job URL': app.jobUrl || '',
-      'Meeting URL': app.meetingUrl || '',
-      'Job Description': app.jobDescription || '',
-      'Notes': app.notes || '',
-      'Created At': new Date(app.createdAt).toLocaleDateString(),
-      'Updated At': new Date(app.updatedAt).toLocaleDateString()
-    }));
+  // const exportToExcel = () => {
+  //   const dataToExport = filteredAndSortedApplications.map(app => ({
+  //     'Company Name': app.companyName,
+  //     'Job Title': app.jobTitle,
+  //     'Job Type': app.jobType,
+  //     'Location': app.location,
+  //     'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
+  //     'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
+  //     'Job URL': app.jobUrl || '',
+  //     'Meeting URL': app.meetingUrl || '',
+  //     'Job Description': app.jobDescription || '',
+  //     'Notes': app.notes || '',
+  //     'Created At': new Date(app.createdAt).toLocaleDateString(),
+  //     'Updated At': new Date(app.updatedAt).toLocaleDateString()
+  //   }));
 
-    const ws = XLSX.utils.json_to_sheet(dataToExport);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
+  //   const ws = XLSX.utils.json_to_sheet(dataToExport);
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
     
-    const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
-    XLSX.writeFile(wb, fileName);
-  };
+  //   const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
+  //   XLSX.writeFile(wb, fileName);
+  // };
 
   const handleDeleteRequest = (id: string) => {
     setPendingDeleteId(id);
