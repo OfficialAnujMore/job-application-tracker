@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ProfileMenu from './ProfileMenu';
 import styles from '../styles/header.module.css';
+import { strings } from '../locals';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -24,9 +25,26 @@ const Header: React.FC = () => {
           const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
           if (userDoc.exists()) {
             setUser(userDoc.data() as UserProfile);
+          } else {
+            // Create a fallback user profile if the document doesn't exist
+            const fallbackUser: UserProfile = {
+              id: firebaseUser.uid,
+              email: firebaseUser.email || '',
+              displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+              createdAt: new Date().toISOString()
+            };
+            setUser(fallbackUser);
           }
         } catch (error) {
           console.error('Error fetching user profile:', error);
+          // Create a fallback user profile on error
+          const fallbackUser: UserProfile = {
+            id: firebaseUser.uid,
+            email: firebaseUser.email || '',
+            displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+            createdAt: new Date().toISOString()
+          };
+          setUser(fallbackUser);
         }
       } else {
         setUser(null);
@@ -44,24 +62,31 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo} onClick={() => navigate('/dashboard')}>
+      <div className={styles.logo} onClick={() => navigate('/home')}>
         <FontAwesomeIcon icon={faBriefcase} className={styles.logoIcon} />
-        <span>Job Tracker</span>
+        <span>{strings.app.title}</span>
       </div>
       <nav className={styles.nav}>
         <button
           className={styles.navButton}
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/home')}
         >
           <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
-          <span>Dashboard</span>
+          <span>{strings.app.navigation.home}</span>
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => navigate('/analytics')}
+        >
+          <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
+          <span>{strings.app.navigation.analytics}</span>
         </button>
         <button
           className={styles.navButton}
           onClick={() => navigate('/application/new')}
         >
           <FontAwesomeIcon icon={faPlus} className={styles.buttonIcon} />
-          <span>Add Application</span>
+          <span>{strings.app.navigation.addApplication}</span>
         </button>
       </nav>
       {user && <ProfileMenu user={user} />}

@@ -11,9 +11,17 @@ import {
   faPen,
   faTrash,
   faCheck,
-  faTimes
+  faTimes,
+  faFileExcel,
+  faUndo
 } from '@fortawesome/free-solid-svg-icons';
+import * as XLSX from 'xlsx';
 import styles from '../styles/applicationTable.module.css';
+import TextInput from './TextInput';
+import DatePicker from './DatePicker';
+import Select from './Select';
+import CustomModal from './CustomModal';
+import { strings } from '../locals';
 
 interface ApplicationTableProps {
   applications: JobApplication[];
@@ -31,6 +39,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
     try {
@@ -48,6 +58,53 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       setSortField(field);
       setSortOrder('asc');
     }
+  };
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setFilterJobType('');
+    setStartDate('');
+    setEndDate('');
+  };
+
+  const exportToExcel = () => {
+    const dataToExport = filteredAndSortedApplications.map(app => ({
+      'Company Name': app.companyName,
+      'Job Title': app.jobTitle,
+      'Job Type': app.jobType,
+      'Location': app.location,
+      'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
+      'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
+      'Job URL': app.jobUrl || '',
+      'Meeting URL': app.meetingUrl || '',
+      'Job Description': app.jobDescription || '',
+      'Notes': app.notes || '',
+      'Created At': new Date(app.createdAt).toLocaleDateString(),
+      'Updated At': new Date(app.updatedAt).toLocaleDateString()
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
+    
+    const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
+    XLSX.writeFile(wb, fileName);
+  };
+
+  const handleDeleteRequest = (id: string) => {
+    setPendingDeleteId(id);
+    setModalOpen(true);
+  };
+  const handleDeleteConfirm = async () => {
+    if (pendingDeleteId) {
+      await handleDelete(pendingDeleteId);
+      setPendingDeleteId(null);
+      setModalOpen(false);
+    }
+  };
+  const handleDeleteCancel = () => {
+    setPendingDeleteId(null);
+    setModalOpen(false);
   };
 
   const filteredAndSortedApplications = useMemo(() => {
@@ -95,76 +152,85 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     <div className={styles.tableContainer}>
       <div className={styles.filters}>
         <div className={styles.searchFilter}>
-          <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Search by company..."
+          <TextInput
+            label={strings.dashboard.filters.search}
+            placeholder={strings.dashboard.filters.search}
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
             className={styles.searchInput}
           />
         </div>
         <div className={styles.jobTypeFilter}>
-          <FontAwesomeIcon icon={faBriefcase} className={styles.filterIcon} />
-          <select
+          <Select
+            label={strings.dashboard.filters.jobType.label}
+            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: type }))]}
             value={filterJobType}
-            onChange={(e) => setFilterJobType(e.target.value)}
+            onChange={value => setFilterJobType(value)}
             className={styles.select}
-          >
-            <option value="">All Job Types</option>
-            {jobTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         <div className={styles.dateFilter}>
-          <div className={styles.dateInputGroup}>
-            <FontAwesomeIcon icon={faCalendar} className={styles.calendarIcon} />
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
-          <span>to</span>
-          <div className={styles.dateInputGroup}>
-            <FontAwesomeIcon icon={faCalendar} className={styles.calendarIcon} />
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
+          <DatePicker
+            label={strings.dashboard.filters.dateRange.start}
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+            className={styles.dateInput}
+          />
+          <span>{strings.dashboard.table.actions.to}</span>
+          <DatePicker
+            label={strings.dashboard.filters.dateRange.end}
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)}
+            className={styles.dateInput}
+          />
         </div>
+        {/* <div className={styles.actionButtons}>
+          <button
+            onClick={resetFilters}
+            className={styles.resetButton}
+            title={strings.dashboard.filters.revert}
+          >
+            <FontAwesomeIcon icon={faUndo} className={styles.icon} />
+            {strings.dashboard.filters.revert}
+          </button>
+          <button
+            onClick={exportToExcel}
+            className={styles.exportButton}
+            title={strings.dashboard.table.actions.exportTitle}
+          >
+            <FontAwesomeIcon icon={faFileExcel} className={styles.icon} />
+            {strings.dashboard.table.actions.export}
+          </button>
+        </div> */}
       </div>
 
       <table className={styles.table}>
         <thead>
           <tr>
             <th onClick={() => handleSort('companyName')}>
-              Company
+              {strings.dashboard.table.headers.company}
             </th>
-            <th>Job Title</th>
+            <th>{strings.dashboard.table.headers.jobTitle}</th>
             <th onClick={() => handleSort('jobType')}>
-              Type
+              {strings.dashboard.table.headers.type}
             </th>
-            <th>Location</th>
+            <th>{strings.dashboard.table.headers.location}</th>
             <th onClick={() => handleSort('dateApplied')}>
-              Date Applied
+              {strings.dashboard.table.headers.dateApplied}
             </th>
             <th onClick={() => handleSort('status')}>
-              Status
+              {strings.dashboard.table.headers.status}
             </th>
-            <th>Actions</th>
+            <th>{strings.dashboard.table.headers.actions}</th>
           </tr>
         </thead>
         <tbody>
           {filteredAndSortedApplications.map((app) => (
-            <tr key={app.id}>
+            <tr 
+              key={app.id} 
+              className={styles.tableRow}
+              onClick={() => navigate(`/view/${app.id}`)}
+            >
               <td>{app.companyName}</td>
               <td>{app.jobTitle}</td>
               <td>{app.jobType}</td>
@@ -175,7 +241,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
                   {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                 </span>
               </td>
-              <td className={styles.actions}>
+              <td className={styles.actions} onClick={(e) => e.stopPropagation()}>
                 <button
                   onClick={() => navigate(`/application/${app.id}`)}
                   className={styles.actionButton}
@@ -183,37 +249,27 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
                 >
                   <FontAwesomeIcon icon={faPen} className={styles.icon} />
                 </button>
-                {deleteConfirm === app.id ? (
-                  <>
-                    <button
-                      onClick={() => handleDelete(app.id)}
-                      className={`${styles.actionButton} ${styles.confirmDelete}`}
-                      title="Confirm Delete"
-                    >
-                      <FontAwesomeIcon icon={faCheck} className={styles.icon} />
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirm(null)}
-                      className={`${styles.actionButton} ${styles.cancelDelete}`}
-                      title="Cancel"
-                    >
-                      <FontAwesomeIcon icon={faTimes} className={styles.icon} />
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => setDeleteConfirm(app.id)}
-                    className={styles.actionButton}
-                    title="Delete"
-                  >
-                    <FontAwesomeIcon icon={faTrash} className={styles.icon} />
-                  </button>
-                )}
+                <button
+                  onClick={() => handleDeleteRequest(app.id)}
+                  className={styles.actionButton}
+                  title="Delete"
+                >
+                  <FontAwesomeIcon icon={faTrash} className={styles.icon} />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <CustomModal
+        isOpen={modalOpen}
+        title={strings.dashboard.table.actions.delete}
+        message={strings.dashboard.table.actions.deleteConfirm}
+        confirmText={strings.dashboard.table.actions.delete}
+        cancelText="Cancel"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </div>
   );
 };
