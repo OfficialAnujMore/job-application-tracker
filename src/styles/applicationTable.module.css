@@ -10,7 +10,7 @@
 .filters {
   padding: 1.25rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   background-color: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
@@ -24,7 +24,6 @@
 .searchInput,
 .select,
 .dateInput {
-  width: 100%;
   padding: 0.625rem 2.25rem;
   border: 1px solid #e5e7eb;
   border-radius: 0.375rem;

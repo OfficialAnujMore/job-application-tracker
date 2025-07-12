@@ -41,6 +41,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .formGroup label {
@@ -50,7 +51,7 @@ h1 {
 
 .nameFields {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
@@ -92,10 +93,15 @@ h1 {
 
 .passwordField {
   position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .passwordField input {
   width: 100%;
+  padding-right: 2.5rem;
+  box-sizing: border-box;
 }
 
 .togglePassword {
@@ -105,27 +111,18 @@ h1 {
   transform: translateY(-50%);
   background: none;
   border: none;
-  padding: 0.5rem;
   cursor: pointer;
-  color: #6b7280;
+  padding: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
+  height: 1.5rem;
 }
 
-.togglePassword:hover {
-  color: #3b82f6;
-}
-
-.togglePassword:focus {
-  outline: none;
-  color: #3b82f6;
-}
-
-.icon {
+.togglePassword .icon {
   width: 1.25rem;
   height: 1.25rem;
+  display: block;
+  margin: 0;
 }
 
 .footer {

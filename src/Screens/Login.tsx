@@ -1,100 +1,63 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth} from '../Firebase/firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { auth } from '../Firebase/firebase';
 import styles from '../styles/auth.module.css';
 import componentStyles from '../styles/components.module.css';
-import { motion } from 'framer-motion';
-import CustomButton from '../MyComponents/CustomButton';
-import Loader from '../MyComponents/Loader';
+import TextInput from '../MyComponents/TextInput';
 
-const Login: React.FC = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
-    
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Failed to login');
-    } finally {
-      setLoading(false);
     }
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <motion.div
-      className={styles.container}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
+    <div className={styles.container}>
       <div className={styles.formContainer}>
         <h1>Welcome Back</h1>
         <p className={styles.subtitle}>Sign in to continue tracking your job applications</p>
-        
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
+            <TextInput
+              label="Email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
-              className={componentStyles.input}
               placeholder="Enter your email"
+              className={componentStyles.input}
             />
           </div>
-
           <div className={styles.formGroup}>
-            <label htmlFor="password">Password</label>
-            <div className={styles.passwordField}>
-              <input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className={componentStyles.input}
-                placeholder="Enter your password"
-              />
-              <button
-                type="button"
-                className={styles.togglePassword}
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                <FontAwesomeIcon 
-                  icon={showPassword ? faEyeSlash : faEye} 
-                  className={styles.icon}
-                />
-              </button>
-            </div>
+            <TextInput
+              id="password"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              placeholder="Enter your password"
+              className={componentStyles.input}
+              showPasswordToggle
+            />
           </div>
-
           {error && <p className={styles.error}>{error}</p>}
-
-          <CustomButton type="submit" fullWidth>
+          <button type="submit" className={componentStyles.button}>
             Login
-          </CustomButton>
+          </button>
         </form>
-
         <p className={styles.footer}>
           Don't have an account?{' '}
           <Link to="/register" className={styles.link}>
@@ -102,7 +65,7 @@ const Login: React.FC = () => {
           </Link>
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

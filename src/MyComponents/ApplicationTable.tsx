@@ -14,6 +14,9 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/applicationTable.module.css';
+import TextInput from './TextInput';
+import DatePicker from './DatePicker';
+import Select from './Select';
 
 interface ApplicationTableProps {
   applications: JobApplication[];
@@ -95,50 +98,37 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     <div className={styles.tableContainer}>
       <div className={styles.filters}>
         <div className={styles.searchFilter}>
-          <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
-          <input
-            type="text"
+          <TextInput
+            label="Search"
             placeholder="Search by company..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
             className={styles.searchInput}
           />
         </div>
         <div className={styles.jobTypeFilter}>
-          <FontAwesomeIcon icon={faBriefcase} className={styles.filterIcon} />
-          <select
+          <Select
+            label="Job Type"
+            options={[{ value: '', label: 'All Job Types' }, ...jobTypes.map(type => ({ value: type, label: type }))]}
             value={filterJobType}
-            onChange={(e) => setFilterJobType(e.target.value)}
+            onChange={value => setFilterJobType(value)}
             className={styles.select}
-          >
-            <option value="">All Job Types</option>
-            {jobTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         <div className={styles.dateFilter}>
-          <div className={styles.dateInputGroup}>
-            <FontAwesomeIcon icon={faCalendar} className={styles.calendarIcon} />
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
+          <DatePicker
+            label="Start Date"
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+            className={styles.dateInput}
+          />
           <span>to</span>
-          <div className={styles.dateInputGroup}>
-            <FontAwesomeIcon icon={faCalendar} className={styles.calendarIcon} />
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
+          <DatePicker
+            label="End Date"
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)}
+            className={styles.dateInput}
+          />
         </div>
       </div>
 

@@ -6,7 +6,11 @@ import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../MyComponents/Button';
 import Select from '../MyComponents/Select';
-import CustomTextField, { CustomTextArea, RichTextEditor } from '../MyComponents/CustomTextField';
+import TextInput from '../MyComponents/TextInput';
+import TextArea from '../MyComponents/TextArea';
+import DatePicker from '../MyComponents/DatePicker';
+import UrlInput from '../MyComponents/UrlInput';
+import { RichTextEditor } from '../MyComponents/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/form.module.css';
 
@@ -157,16 +161,16 @@ const ApplicationForm: React.FC = () => {
       {error && <div className={styles.error}>{error}</div>}
       <form onSubmit={handleSubmit} className={`${styles.form} ${loading ? styles.loading : ''}`}>
         <div className={styles.formGrid}>
-          <CustomTextField
+          <TextInput
             label="Company Name"
             value={formData.companyName || ''}
-            onChange={(e) => handleInputChange('companyName', e.target.value)}
+            onChange={e => handleInputChange('companyName', e.target.value)}
             required
           />
-          <CustomTextField
+          <TextInput
             label="Job Title"
             value={formData.jobTitle || ''}
-            onChange={(e) => handleInputChange('jobTitle', e.target.value)}
+            onChange={e => handleInputChange('jobTitle', e.target.value)}
             required
           />
           <Select
@@ -176,17 +180,16 @@ const ApplicationForm: React.FC = () => {
             onChange={(value) => handleInputChange('jobType', value)}
             required
           />
-          <CustomTextField
+          <TextInput
             label="Location"
             value={formData.location || ''}
-            onChange={(e) => handleInputChange('location', e.target.value)}
+            onChange={e => handleInputChange('location', e.target.value)}
             required
           />
-          <CustomTextField
+          <DatePicker
             label="Date Applied"
-            type="date"
             value={formData.dateApplied || ''}
-            onChange={(e) => handleInputChange('dateApplied', e.target.value)}
+            onChange={e => handleInputChange('dateApplied', e.target.value)}
             max={new Date().toISOString().split('T')[0]}
             required
           />
@@ -197,18 +200,16 @@ const ApplicationForm: React.FC = () => {
             onChange={(value) => handleInputChange('status', value)}
             required
           />
-          <CustomTextField
+          <UrlInput
             label="Job URL"
-            type="url"
             value={formData.jobUrl || ''}
-            onChange={(e) => handleInputChange('jobUrl', e.target.value)}
+            onChange={e => handleInputChange('jobUrl', e.target.value)}
             placeholder="https://example.com/job-posting"
           />
-          <CustomTextField
+          <UrlInput
             label="Meeting URL"
-            type="url"
             value={formData.meetingUrl || ''}
-            onChange={(e) => handleInputChange('meetingUrl', e.target.value)}
+            onChange={e => handleInputChange('meetingUrl', e.target.value)}
             placeholder="https://meet.example.com"
           />
           <div className={styles.otherUrls}>
@@ -216,17 +217,16 @@ const ApplicationForm: React.FC = () => {
             {formData.otherUrls?.map((urlItem, index) => (
               <div key={index} className={styles.otherUrlInput}>
                 <div className={styles.urlFields}>
-                  <CustomTextField
+                  <TextInput
                     label={`URL Name ${index + 1}`}
                     value={urlItem.name}
-                    onChange={(e) => handleOtherUrlChange(index, 'name', e.target.value)}
+                    onChange={e => handleOtherUrlChange(index, 'name', e.target.value)}
                     placeholder="e.g., Company Website, LinkedIn"
                   />
-                  <CustomTextField
+                  <UrlInput
                     label={`URL ${index + 1}`}
-                    type="url"
                     value={urlItem.url}
-                    onChange={(e) => handleOtherUrlChange(index, 'url', e.target.value)}
+                    onChange={e => handleOtherUrlChange(index, 'url', e.target.value)}
                     placeholder="https://example.com"
                   />
                 </div>
@@ -258,10 +258,10 @@ const ApplicationForm: React.FC = () => {
               onChange={(value) => handleInputChange('jobDescription', value)}
               placeholder="Enter the job description"
             />
-            <CustomTextArea
+            <TextArea
               label="Notes"
               value={formData.notes || ''}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
+              onChange={e => handleInputChange('notes', e.target.value)}
               placeholder="Add any additional notes or comments"
             />
           </div>
