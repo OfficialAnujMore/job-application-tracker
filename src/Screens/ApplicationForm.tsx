@@ -6,7 +6,7 @@ import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../MyComponents/Button';
 import Select from '../MyComponents/Select';
-import CustomTextField from '../MyComponents/CustomTextField';
+import CustomTextField, { CustomTextArea, RichTextEditor } from '../MyComponents/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/form.module.css';
 
@@ -23,7 +23,9 @@ const ApplicationForm: React.FC = () => {
     dateApplied: new Date().toISOString().split('T')[0],
     status: 'applied',
     jobUrl: '',
-    meetingUrls: [''],
+    meetingUrl: '',
+    otherUrls: [{ name: '', url: '' }],
+    jobDescription: '',
     notes: '',
   });
   const [loading, setLoading] = useState(false);
@@ -129,23 +131,23 @@ const ApplicationForm: React.FC = () => {
     }
   };
 
-  const handleMeetingUrlChange = (index: number, value: string) => {
-    const newMeetingUrls = [...(formData.meetingUrls || [''])];
-    newMeetingUrls[index] = value;
-    setFormData((prev) => ({ ...prev, meetingUrls: newMeetingUrls }));
+  const handleOtherUrlChange = (index: number, field: 'name' | 'url', value: string) => {
+    const newOtherUrls = [...(formData.otherUrls || [{ name: '', url: '' }])];
+    newOtherUrls[index] = { ...newOtherUrls[index], [field]: value };
+    setFormData((prev) => ({ ...prev, otherUrls: newOtherUrls }));
   };
 
-  const addMeetingUrl = () => {
+  const addOtherUrl = () => {
     setFormData((prev) => ({
       ...prev,
-      meetingUrls: [...(prev.meetingUrls || []), ''],
+      otherUrls: [...(prev.otherUrls || []), { name: '', url: '' }],
     }));
   };
 
-  const removeMeetingUrl = (index: number) => {
+  const removeOtherUrl = (index: number) => {
     setFormData((prev) => ({
       ...prev,
-      meetingUrls: prev.meetingUrls?.filter((_, i) => i !== index) || [''],
+      otherUrls: prev.otherUrls?.filter((_, i) => i !== index) || [{ name: '', url: '' }],
     }));
   };
 
@@ -202,23 +204,38 @@ const ApplicationForm: React.FC = () => {
             onChange={(e) => handleInputChange('jobUrl', e.target.value)}
             placeholder="https://example.com/job-posting"
           />
-          <div className={styles.meetingUrls}>
-            <label>Meeting URLs</label>
-            {formData.meetingUrls?.map((url, index) => (
-              <div key={index} className={styles.meetingUrlInput}>
-                <CustomTextField
-                  label={`Meeting URL ${index + 1}`}
-                  type="url"
-                  value={url}
-                  onChange={(e) => handleMeetingUrlChange(index, e.target.value)}
-                  placeholder="https://meet.example.com"
-                />
+          <CustomTextField
+            label="Meeting URL"
+            type="url"
+            value={formData.meetingUrl || ''}
+            onChange={(e) => handleInputChange('meetingUrl', e.target.value)}
+            placeholder="https://meet.example.com"
+          />
+          <div className={styles.otherUrls}>
+            <label>Other URLs</label>
+            {formData.otherUrls?.map((urlItem, index) => (
+              <div key={index} className={styles.otherUrlInput}>
+                <div className={styles.urlFields}>
+                  <CustomTextField
+                    label={`URL Name ${index + 1}`}
+                    value={urlItem.name}
+                    onChange={(e) => handleOtherUrlChange(index, 'name', e.target.value)}
+                    placeholder="e.g., Company Website, LinkedIn"
+                  />
+                  <CustomTextField
+                    label={`URL ${index + 1}`}
+                    type="url"
+                    value={urlItem.url}
+                    onChange={(e) => handleOtherUrlChange(index, 'url', e.target.value)}
+                    placeholder="https://example.com"
+                  />
+                </div>
                 {index > 0 && (
                   <Button
                     type="button"
                     variant="danger"
                     icon={faTimes}
-                    onClick={() => removeMeetingUrl(index)}
+                    onClick={() => removeOtherUrl(index)}
                     className={styles.removeButton}
                   />
                 )}
@@ -228,18 +245,26 @@ const ApplicationForm: React.FC = () => {
               type="button"
               variant="secondary"
               icon={faPlus}
-              onClick={addMeetingUrl}
+              onClick={addOtherUrl}
               className={styles.addButton}
             >
-              Add Meeting URL
+              Add Other URL
             </Button>
           </div>
-          <CustomTextField
-            label="Notes"
-            value={formData.notes || ''}
-            onChange={(e) => handleInputChange('notes', e.target.value)}
-            placeholder="Add any additional notes or comments"
-          />
+          <div className={styles.textAreaSection}>
+            <RichTextEditor
+              label="Job Description"
+              value={formData.jobDescription || ''}
+              onChange={(value) => handleInputChange('jobDescription', value)}
+              placeholder="Enter the job description"
+            />
+            <CustomTextArea
+              label="Notes"
+              value={formData.notes || ''}
+              onChange={(e) => handleInputChange('notes', e.target.value)}
+              placeholder="Add any additional notes or comments"
+            />
+          </div>
           <div className={styles.buttons}>
             <Button type="submit" icon={faSave} isLoading={loading}>
               {isEditing ? 'Update Application' : 'Add Application'}

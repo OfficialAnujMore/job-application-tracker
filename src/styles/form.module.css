@@ -68,22 +68,37 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.meetingUrls {
+.otherUrls {
   grid-column: span 2;
 }
 
-.meetingUrls label {
+.otherUrls label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
   color: #374151;
 }
 
-.meetingUrlInput {
+.otherUrlInput {
   display: flex;
   gap: 0.5rem;
   align-items: flex-start;
   margin-bottom: 0.75rem;
+  flex-direction: column;
+}
+
+.urlFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.textAreaSection {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .addButton,
@@ -139,7 +154,16 @@
     gap: 1rem;
   }
 
-  .meetingUrls {
+  .otherUrls {
+    grid-column: span 1;
+  }
+
+  .urlFields {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .textAreaSection {
     grid-column: span 1;
   }
 

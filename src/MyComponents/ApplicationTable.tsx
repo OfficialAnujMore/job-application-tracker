@@ -164,7 +164,11 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         </thead>
         <tbody>
           {filteredAndSortedApplications.map((app) => (
-            <tr key={app.id}>
+            <tr 
+              key={app.id} 
+              className={styles.tableRow}
+              onClick={() => navigate(`/view/${app.id}`)}
+            >
               <td>{app.companyName}</td>
               <td>{app.jobTitle}</td>
               <td>{app.jobType}</td>
@@ -175,7 +179,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
                   {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                 </span>
               </td>
-              <td className={styles.actions}>
+              <td className={styles.actions} onClick={(e) => e.stopPropagation()}>
                 <button
                   onClick={() => navigate(`/application/${app.id}`)}
                   className={styles.actionButton}

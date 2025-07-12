@@ -25,8 +25,7 @@ const Register = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
       await setDoc(doc(db, 'users', userCredential.user.uid), {
-        firstName,
-        lastName,
+        displayName: `${firstName} ${lastName}`,
         email,
         createdAt: new Date().toISOString(),
         lastLogin: new Date().toISOString()

@@ -24,9 +24,26 @@ const Header: React.FC = () => {
           const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
           if (userDoc.exists()) {
             setUser(userDoc.data() as UserProfile);
+          } else {
+            // Create a fallback user profile if the document doesn't exist
+            const fallbackUser: UserProfile = {
+              id: firebaseUser.uid,
+              email: firebaseUser.email || '',
+              displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+              createdAt: new Date().toISOString()
+            };
+            setUser(fallbackUser);
           }
         } catch (error) {
           console.error('Error fetching user profile:', error);
+          // Create a fallback user profile on error
+          const fallbackUser: UserProfile = {
+            id: firebaseUser.uid,
+            email: firebaseUser.email || '',
+            displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+            createdAt: new Date().toISOString()
+          };
+          setUser(fallbackUser);
         }
       } else {
         setUser(null);

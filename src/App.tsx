@@ -6,6 +6,7 @@ import Dashboard from './Screens/Dashboard';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import ApplicationForm from './Screens/ApplicationForm';
+import ViewApplication from './Screens/ViewApplication';
 import Splash from './MyComponents/Splash';
 
 const App: React.FC = () => {
@@ -51,6 +52,10 @@ const App: React.FC = () => {
         <Route
           path="/application/:id"
           element={user ? <ApplicationForm /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/view/:id"
+          element={user ? <ViewApplication /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
