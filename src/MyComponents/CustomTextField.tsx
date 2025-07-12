@@ -1,6 +1,6 @@
-import React, { InputHTMLAttributes, TextareaHTMLAttributes, useRef, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, TextareaHTMLAttributes} from 'react';
 import styles from '../styles/components.module.css';
-import { strings } from '../locals';
+
 
 interface CustomTextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -12,14 +12,14 @@ interface CustomTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement
   error?: string;
 }
 
-interface RichTextEditorProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  error?: string;
-  className?: string;
-}
+// interface RichTextEditorProps {
+//   label: string;
+//   value: string;
+//   onChange: (value: string) => void;
+//   placeholder?: string;
+//   error?: string;
+//   className?: string;
+// }
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({ 
   label, 

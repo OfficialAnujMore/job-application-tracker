@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from '../styles/components.module.css';
-import { strings } from '../locals';
 
 interface LoaderProps {
   fullScreen?: boolean;

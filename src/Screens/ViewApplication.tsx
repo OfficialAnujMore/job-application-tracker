@@ -5,7 +5,7 @@ import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../MyComponents/Button';
-import { faArrowLeft, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/viewApplication.module.css';
 import { strings } from '../locals';
 
