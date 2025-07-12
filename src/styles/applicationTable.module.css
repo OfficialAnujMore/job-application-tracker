@@ -69,6 +69,44 @@
   font-size: 0.875rem;
 }
 
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.resetButton,
+.exportButton {
+  padding: 0.625rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: white;
+  color: #374151;
+}
+
+.resetButton:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.exportButton {
+  background-color: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.exportButton:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -250,6 +288,12 @@
     grid-template-columns: 1fr;
     gap: 0.75rem;
     padding: 1rem;
+  }
+
+  .actionButtons {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
 
   .dateFilter {

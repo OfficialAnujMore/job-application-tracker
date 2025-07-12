@@ -6,6 +6,7 @@ import { JobApplication } from '../types';
 import Header from '../MyComponents/Header';
 import ApplicationTable from '../MyComponents/ApplicationTable';
 import KPICards from '../MyComponents/KPICards';
+import Splash from '../MyComponents/Splash';
 import styles from '../styles/dashboard.module.css';
 
 const Dashboard: React.FC = () => {
@@ -41,7 +42,7 @@ const Dashboard: React.FC = () => {
   }, [navigate]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Splash />;
   }
 
   return (

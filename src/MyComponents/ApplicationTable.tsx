@@ -11,8 +11,11 @@ import {
   faPen,
   faTrash,
   faCheck,
-  faTimes
+  faTimes,
+  faFileExcel,
+  faUndo
 } from '@fortawesome/free-solid-svg-icons';
+import * as XLSX from 'xlsx';
 import styles from '../styles/applicationTable.module.css';
 import TextInput from './TextInput';
 import DatePicker from './DatePicker';
@@ -51,6 +54,37 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       setSortField(field);
       setSortOrder('asc');
     }
+  };
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setFilterJobType('');
+    setStartDate('');
+    setEndDate('');
+  };
+
+  const exportToExcel = () => {
+    const dataToExport = filteredAndSortedApplications.map(app => ({
+      'Company Name': app.companyName,
+      'Job Title': app.jobTitle,
+      'Job Type': app.jobType,
+      'Location': app.location,
+      'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
+      'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
+      'Job URL': app.jobUrl || '',
+      'Meeting URL': app.meetingUrl || '',
+      'Job Description': app.jobDescription || '',
+      'Notes': app.notes || '',
+      'Created At': new Date(app.createdAt).toLocaleDateString(),
+      'Updated At': new Date(app.updatedAt).toLocaleDateString()
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
+    
+    const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
+    XLSX.writeFile(wb, fileName);
   };
 
   const filteredAndSortedApplications = useMemo(() => {
@@ -129,6 +163,24 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
             onChange={e => setEndDate(e.target.value)}
             className={styles.dateInput}
           />
+        </div>
+        <div className={styles.actionButtons}>
+          <button
+            onClick={resetFilters}
+            className={styles.resetButton}
+            title="Reset Filters"
+          >
+            <FontAwesomeIcon icon={faUndo} className={styles.icon} />
+            Reset
+          </button>
+          <button
+            onClick={exportToExcel}
+            className={styles.exportButton}
+            title="Export to Excel"
+          >
+            <FontAwesomeIcon icon={faFileExcel} className={styles.icon} />
+            Export
+          </button>
         </div>
       </div>
 
