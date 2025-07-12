@@ -1,5 +1,6 @@
 import React, { InputHTMLAttributes, TextareaHTMLAttributes, useRef, useEffect, useState } from 'react';
 import styles from '../styles/components.module.css';
+import { strings } from '../locals';
 
 interface CustomTextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -253,25 +254,25 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={`${styles.toolbarButton} ${isBold ? styles.active : ''}`}
               onClick={() => handleFormat('bold')}
-              title="Bold (Ctrl+B)"
+              title={strings.toolbar.boldTooltip}
             >
-              <strong>B</strong>
+              <strong>{strings.toolbar.bold}</strong>
             </button>
             <button
               type="button"
               className={`${styles.toolbarButton} ${isItalic ? styles.active : ''}`}
               onClick={() => handleFormat('italic')}
-              title="Italic (Ctrl+I)"
+              title={strings.toolbar.italicTooltip}
             >
-              <em>I</em>
+              <em>{strings.toolbar.italic}</em>
             </button>
             <button
               type="button"
               className={`${styles.toolbarButton} ${isUnderline ? styles.active : ''}`}
               onClick={() => handleFormat('underline')}
-              title="Underline (Ctrl+U)"
+              title={strings.toolbar.underlineTooltip}
             >
-              <u>U</u>
+              <u>{strings.toolbar.underline}</u>
             </button>
           </div>
 
@@ -283,17 +284,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('foreColor')}
-              title="Text Color"
+              title={strings.toolbar.textColorTooltip}
             >
-              <span style={{ color: '#ff0000' }}>A</span>
+              <span style={{ color: '#ff0000' }}>{strings.toolbar.textColor}</span>
             </button>
             <button
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('hiliteColor')}
-              title="Highlight Color"
+              title={strings.toolbar.highlightColorTooltip}
             >
-              <span style={{ backgroundColor: '#ffff00' }}>H</span>
+              <span style={{ backgroundColor: '#ffff00' }}>{strings.toolbar.highlightColor}</span>
             </button>
           </div>
 
@@ -305,17 +306,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('insertUnorderedList')}
-              title="Bullet List"
+              title={strings.toolbar.bulletListTooltip}
             >
-              • List
+              {strings.toolbar.bulletList}
             </button>
             <button
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('insertOrderedList')}
-              title="Numbered List"
+              title={strings.toolbar.numberedListTooltip}
             >
-              1. List
+              {strings.toolbar.numberedList}
             </button>
           </div>
 
@@ -327,25 +328,25 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('justifyLeft')}
-              title="Align Left"
+              title={strings.toolbar.alignLeftTooltip}
             >
-              ⬅
+              {strings.toolbar.alignLeft}
             </button>
             <button
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('justifyCenter')}
-              title="Align Center"
+              title={strings.toolbar.alignCenterTooltip}
             >
-              ↔
+              {strings.toolbar.alignCenter}
             </button>
             <button
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('justifyRight')}
-              title="Align Right"
+              title={strings.toolbar.alignRightTooltip}
             >
-              ➡
+              {strings.toolbar.alignRight}
             </button>
           </div>
 
@@ -357,17 +358,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('createLink')}
-              title="Insert Link"
+              title={strings.toolbar.insertLinkTooltip}
             >
-              🔗
+              {strings.toolbar.insertLink}
             </button>
             <button
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('unlink')}
-              title="Remove Link"
+              title={strings.toolbar.removeLinkTooltip}
             >
-              🔗❌
+              {strings.toolbar.removeLink}
             </button>
           </div>
 
@@ -379,9 +380,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('fontSize')}
-              title="Font Size"
+              title={strings.toolbar.fontSizeTooltip}
             >
-              A+
+              {strings.toolbar.fontSize}
             </button>
           </div>
 
@@ -393,9 +394,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               type="button"
               className={styles.toolbarButton}
               onClick={() => handleFormat('removeFormat')}
-              title="Clear Formatting"
+              title={strings.toolbar.clearFormattingTooltip}
             >
-              🗑
+              {strings.toolbar.clearFormatting}
             </button>
           </div>
         </div>
@@ -404,17 +405,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         {showLinkDialog && (
           <div className={styles.linkDialog}>
             <div className={styles.linkDialogContent}>
-              <h4>Insert Link</h4>
+              <h4>{strings.linkDialog.insertLinkTitle}</h4>
               <input
                 type="text"
-                placeholder="Link text"
+                placeholder={strings.linkDialog.linkTextPlaceholder}
                 value={linkText}
                 onChange={(e) => setLinkText(e.target.value)}
                 className={styles.linkInput}
               />
               <input
                 type="url"
-                placeholder="URL (https://example.com)"
+                placeholder={strings.linkDialog.linkUrlPlaceholder}
                 value={linkUrl}
                 onChange={(e) => setLinkUrl(e.target.value)}
                 className={styles.linkInput}
@@ -425,14 +426,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   onClick={handleLinkSubmit}
                   className={styles.linkDialogButton}
                 >
-                  Insert
+                  {strings.linkDialog.insertButton}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowLinkDialog(false)}
                   className={styles.linkDialogButton}
                 >
-                  Cancel
+                  {strings.linkDialog.cancelButton}
                 </button>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { auth } from '../Firebase/firebase';
 import styles from '../styles/auth.module.css';
 import componentStyles from '../styles/components.module.css';
 import TextInput from '../MyComponents/TextInput';
+import { strings } from '../locals';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,43 +28,43 @@ const Login = () => {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.header}>
-          <h1>Welcome Back</h1>
-          <p className={styles.subtitle}>Sign in to continue tracking your job applications</p>
+          <h1>{strings.auth.login.title}</h1>
+          <p className={styles.subtitle}>{strings.auth.login.subtitle}</p>
         </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
             <TextInput
-              label="Email"
+              label={strings.auth.login.emailLabel}
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder={strings.auth.login.emailPlaceholder}
               className={componentStyles.input}
             />
           </div>
           <div className={styles.formGroup}>
             <TextInput
               id="password"
-              label="Password"
+              label={strings.auth.login.passwordLabel}
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              placeholder="Enter your password"
+              placeholder={strings.auth.login.passwordPlaceholder}
               className={componentStyles.input}
               showPasswordToggle
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}
           <button type="submit" className={styles.submitButton}>
-            Login
+            {strings.auth.login.submitButton}
           </button>
         </form>
         <p className={styles.footer}>
-          Don't have an account?{' '}
+          {strings.auth.login.noAccount}{' '}
           <Link to="/register" className={styles.link}>
-            Register here
+            {strings.auth.login.registerLink}
           </Link>
         </p>
       </div>

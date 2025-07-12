@@ -7,6 +7,7 @@ import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../MyComponents/Button';
 import { faArrowLeft, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/viewApplication.module.css';
+import { strings } from '../locals';
 
 const ViewApplication: React.FC = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const ViewApplication: React.FC = () => {
   if (loading) {
     return (
       <div className={styles.container}>
-        <div className={styles.loading}>Loading application...</div>
+        <div className={styles.loading}>{strings.viewApplication.loadingApplication}</div>
       </div>
     );
   }
@@ -85,7 +86,7 @@ const ViewApplication: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.error}>{error}</div>
         <Button onClick={() => navigate('/home')} variant="secondary">
-          Back to Home
+          {strings.viewApplication.backToHome}
         </Button>
       </div>
     );
@@ -94,9 +95,9 @@ const ViewApplication: React.FC = () => {
   if (!application) {
     return (
       <div className={styles.container}>
-        <div className={styles.error}>Application not found</div>
+        <div className={styles.error}>{strings.viewApplication.applicationNotFound}</div>
         <Button onClick={() => navigate('/home')} variant="secondary">
-          Back to Home
+          {strings.viewApplication.backToHome}
         </Button>
       </div>
     );
@@ -110,14 +111,14 @@ const ViewApplication: React.FC = () => {
           variant="secondary"
           icon={faArrowLeft}
         >
-          Back to Home
+          {strings.viewApplication.backToHome}
         </Button>
         <div className={styles.actions}>
           <Button
             onClick={() => navigate(`/application/${application.id}`)}
             icon={faEdit}
           >
-            Edit
+            {strings.dashboard.table.actions.edit}
           </Button>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/components.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { strings } from '../locals';
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -46,7 +47,7 @@ const TextInput: React.FC<TextInputProps> = ({
         <button
           type="button"
           className={styles.togglePassword}
-          aria-label={showPassword ? "Hide password" : "Show password"}
+          aria-label={showPassword ? strings.form.validation.hidePassword : strings.form.validation.showPassword}
           onClick={() => setShowPassword((prev) => !prev)}
           tabIndex={0}
           style={{

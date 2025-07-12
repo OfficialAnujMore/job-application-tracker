@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/components.module.css';
+import { strings } from '../locals';
 
 interface UrlInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -20,7 +21,7 @@ const UrlInput: React.FC<UrlInputProps> = ({ label, value, onChange, error, requ
       value={value}
       onChange={onChange}
       required={required}
-      placeholder={placeholder || 'https://example.com'}
+      placeholder={placeholder || strings.urlInput.placeholder}
       {...props}
     />
     {error && <div className={styles.errorMessage}>{error}</div>}

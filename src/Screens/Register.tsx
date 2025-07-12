@@ -6,6 +6,7 @@ import { auth, db } from '../Firebase/firebase';
 import styles from '../styles/auth.module.css';
 import componentStyles from '../styles/components.module.css';
 import TextInput from '../MyComponents/TextInput';
+import { strings } from '../locals';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -36,65 +37,65 @@ const Register = () => {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.header}>
-          <h1>Create Account</h1>
-          <p className={styles.subtitle}>Start tracking your job applications today</p>
+          <h1>{strings.auth.register.title}</h1>
+          <p className={styles.subtitle}>{strings.auth.register.subtitle}</p>
         </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.nameFields}>
             <div className={styles.formGroup}>
               <TextInput
-                label="First Name"
+                label={strings.auth.register.firstNameLabel}
                 value={firstName}
                 onChange={e => setFirstName(e.target.value)}
                 required
-                placeholder="Enter your first name"
+                placeholder={strings.auth.register.firstNamePlaceholder}
                 className={componentStyles.input}
               />
             </div>
             <div className={styles.formGroup}>
               <TextInput
-                label="Last Name"
+                label={strings.auth.register.lastNameLabel}
                 value={lastName}
                 onChange={e => setLastName(e.target.value)}
                 required
-                placeholder="Enter your last name"
+                placeholder={strings.auth.register.lastNamePlaceholder}
                 className={componentStyles.input}
               />
             </div>
           </div>
           <div className={styles.formGroup}>
             <TextInput
-              label="Email"
+              label={strings.auth.register.emailLabel}
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder={strings.auth.register.emailPlaceholder}
               className={componentStyles.input}
             />
           </div>
           <div className={styles.formGroup}>
             <TextInput
               id="password"
-              label="Password"
+              label={strings.auth.register.passwordLabel}
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              placeholder="Enter your password"
+              placeholder={strings.auth.register.passwordPlaceholder}
               className={componentStyles.input}
               showPasswordToggle
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}
           <button type="submit" className={styles.submitButton}>
-            Register
+            {strings.auth.register.submitButton}
           </button>
         </form>
         <p className={styles.footer}>
-          Already have an account?{' '}
+          {strings.auth.register.hasAccount}{' '}
           <Link to="/login" className={styles.link}>
-            Login here
+            {strings.auth.register.loginLink}
           </Link>
         </p>
       </div>

@@ -21,6 +21,7 @@ import TextInput from './TextInput';
 import DatePicker from './DatePicker';
 import Select from './Select';
 import CustomModal from './CustomModal';
+import { strings } from '../locals';
 
 interface ApplicationTableProps {
   applications: JobApplication[];
@@ -152,8 +153,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       <div className={styles.filters}>
         <div className={styles.searchFilter}>
           <TextInput
-            label="Search"
-            placeholder="Search by company..."
+            label={strings.dashboard.filters.search}
+            placeholder={strings.dashboard.filters.search}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className={styles.searchInput}
@@ -161,8 +162,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         </div>
         <div className={styles.jobTypeFilter}>
           <Select
-            label="Job Type"
-            options={[{ value: '', label: 'All Job Types' }, ...jobTypes.map(type => ({ value: type, label: type }))]}
+            label={strings.dashboard.filters.jobType.label}
+            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: type }))]}
             value={filterJobType}
             onChange={value => setFilterJobType(value)}
             className={styles.select}
@@ -170,14 +171,14 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         </div>
         <div className={styles.dateFilter}>
           <DatePicker
-            label="Start Date"
+            label={strings.dashboard.filters.dateRange.start}
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
             className={styles.dateInput}
           />
-          <span>to</span>
+          <span>{strings.dashboard.table.actions.to}</span>
           <DatePicker
-            label="End Date"
+            label={strings.dashboard.filters.dateRange.end}
             value={endDate}
             onChange={e => setEndDate(e.target.value)}
             className={styles.dateInput}
@@ -187,18 +188,18 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
           <button
             onClick={resetFilters}
             className={styles.resetButton}
-            title="Reset Filters"
+            title={strings.dashboard.filters.search}
           >
             <FontAwesomeIcon icon={faUndo} className={styles.icon} />
-            Reset
+            {strings.dashboard.filters.search}
           </button>
           <button
             onClick={exportToExcel}
             className={styles.exportButton}
-            title="Export to Excel"
+            title={strings.dashboard.table.actions.exportTitle}
           >
             <FontAwesomeIcon icon={faFileExcel} className={styles.icon} />
-            Export
+            {strings.dashboard.table.actions.export}
           </button>
         </div>
       </div>
@@ -207,20 +208,20 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         <thead>
           <tr>
             <th onClick={() => handleSort('companyName')}>
-              Company
+              {strings.dashboard.table.headers.company}
             </th>
-            <th>Job Title</th>
+            <th>{strings.dashboard.table.headers.jobTitle}</th>
             <th onClick={() => handleSort('jobType')}>
-              Type
+              {strings.dashboard.table.headers.type}
             </th>
-            <th>Location</th>
+            <th>{strings.dashboard.table.headers.location}</th>
             <th onClick={() => handleSort('dateApplied')}>
-              Date Applied
+              {strings.dashboard.table.headers.dateApplied}
             </th>
             <th onClick={() => handleSort('status')}>
-              Status
+              {strings.dashboard.table.headers.status}
             </th>
-            <th>Actions</th>
+            <th>{strings.dashboard.table.headers.actions}</th>
           </tr>
         </thead>
         <tbody>
@@ -262,9 +263,9 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
       </table>
       <CustomModal
         isOpen={modalOpen}
-        title="Delete Application?"
-        message="Are you sure you want to delete this application? This action cannot be reverted."
-        confirmText="Delete"
+        title={strings.dashboard.table.actions.delete}
+        message={strings.dashboard.table.actions.deleteConfirm}
+        confirmText={strings.dashboard.table.actions.delete}
         cancelText="Cancel"
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}

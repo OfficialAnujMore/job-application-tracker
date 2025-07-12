@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/components.module.css';
+import { strings } from '../locals';
 
 interface CustomModalProps {
   isOpen: boolean;
@@ -27,8 +28,8 @@ const CustomModal: React.FC<CustomModalProps> = ({
         {title && <h2 className={styles.modalTitle}>{title}</h2>}
         <p className={styles.modalMessage}>{message}</p>
         <div className={styles.modalActions}>
-          <button className={styles.modalCancel} onClick={onCancel}>{cancelText}</button>
-          <button className={styles.modalConfirm} onClick={onConfirm}>{confirmText}</button>
+          <button className={styles.modalCancel} onClick={onCancel}>{cancelText || strings.form.validation.cancel}</button>
+          <button className={styles.modalConfirm} onClick={onConfirm}>{confirmText || strings.form.validation.confirm}</button>
         </div>
       </div>
     </div>

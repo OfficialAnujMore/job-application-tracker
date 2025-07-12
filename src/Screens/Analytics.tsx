@@ -6,6 +6,7 @@ import { JobApplication } from '../types';
 import Header from '../MyComponents/Header';
 import Splash from '../MyComponents/Splash';
 import styles from '../styles/dashboard.module.css';
+import { strings } from '../locals';
 
 const Analytics: React.FC = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
@@ -99,24 +100,24 @@ const Analytics: React.FC = () => {
       <Header />
       <main className={styles.main}>
         <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-          <h1 style={{ marginBottom: '30px', color: '#333' }}>Analytics Dashboard</h1>
+          <h1 style={{ marginBottom: '30px', color: '#333' }}>{strings.analytics.title}</h1>
           
           {/* Key Metrics */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>Total Applications</h3>
+              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>{strings.analytics.metrics.totalApplications}</h3>
               <p style={{ fontSize: '2rem', margin: '0', fontWeight: 'bold', color: '#333' }}>{analytics.total}</p>
             </div>
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>Success Rate</h3>
+              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>{strings.analytics.metrics.successRate}</h3>
               <p style={{ fontSize: '2rem', margin: '0', fontWeight: 'bold', color: '#28a745' }}>{analytics.successRate}%</p>
             </div>
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>Avg Response Time</h3>
+              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>{strings.analytics.metrics.avgResponseTime}</h3>
               <p style={{ fontSize: '2rem', margin: '0', fontWeight: 'bold', color: '#007bff' }}>{analytics.avgResponseTime} days</p>
             </div>
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>Active Applications</h3>
+              <h3 style={{ margin: '0 0 10px 0', color: '#666' }}>{strings.analytics.metrics.activeApplications}</h3>
                               <p style={{ fontSize: '2rem', margin: '0', fontWeight: 'bold', color: '#ffc107' }}>{analytics.interviewing + analytics.applied}</p>
             </div>
           </div>
@@ -124,30 +125,30 @@ const Analytics: React.FC = () => {
           {/* Status Distribution */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '40px' }}>
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>Application Status</h3>
+              <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>{strings.analytics.sections.statusDistribution}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>Applied</span>
+                  <span>{strings.dashboard.table.status.applied}</span>
                   <span style={{ fontWeight: 'bold', color: '#007bff' }}>{analytics.applied}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>Interviewing</span>
+                  <span>{strings.dashboard.table.status.interviewing}</span>
                   <span style={{ fontWeight: 'bold', color: '#ffc107' }}>{analytics.interviewing}</span>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>Rejected</span>
+                  <span>{strings.dashboard.table.status.rejected}</span>
                   <span style={{ fontWeight: 'bold', color: '#dc3545' }}>{analytics.rejected}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>Accepted</span>
+                  <span>{strings.dashboard.table.status.accepted}</span>
                   <span style={{ fontWeight: 'bold', color: '#28a745' }}>{analytics.accepted}</span>
                 </div>
               </div>
             </div>
 
             <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>Job Type Distribution</h3>
+              <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>{strings.analytics.sections.jobTypeDistribution}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {Object.entries(analytics.jobTypeCounts).map(([type, count]) => (
                   <div key={type} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -161,7 +162,7 @@ const Analytics: React.FC = () => {
 
           {/* Top Companies */}
           <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>Top Companies Applied To</h3>
+            <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>{strings.analytics.sections.topCompanies}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               {analytics.topCompanies.map(([company, count], index) => (
                 <div key={company} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

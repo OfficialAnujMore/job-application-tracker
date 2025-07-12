@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ProfileMenu from './ProfileMenu';
 import styles from '../styles/header.module.css';
+import { strings } from '../locals';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.logo} onClick={() => navigate('/home')}>
         <FontAwesomeIcon icon={faBriefcase} className={styles.logoIcon} />
-        <span>Job Tracker</span>
+        <span>{strings.app.title}</span>
       </div>
       <nav className={styles.nav}>
         <button
@@ -71,21 +72,21 @@ const Header: React.FC = () => {
           onClick={() => navigate('/home')}
         >
           <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
-          <span>Home</span>
+          <span>{strings.app.navigation.home}</span>
         </button>
         <button
           className={styles.navButton}
           onClick={() => navigate('/analytics')}
         >
           <FontAwesomeIcon icon={faChartLine} className={styles.buttonIcon} />
-          <span>Analytics</span>
+          <span>{strings.app.navigation.analytics}</span>
         </button>
         <button
           className={styles.navButton}
           onClick={() => navigate('/application/new')}
         >
           <FontAwesomeIcon icon={faPlus} className={styles.buttonIcon} />
-          <span>Add Application</span>
+          <span>{strings.app.navigation.addApplication}</span>
         </button>
       </nav>
       {user && <ProfileMenu user={user} />}

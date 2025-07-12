@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/splashScreen.module.css';
+import { strings } from '../locals';
 
 const SplashScreen: React.FC = () => {
   const navigate = useNavigate();

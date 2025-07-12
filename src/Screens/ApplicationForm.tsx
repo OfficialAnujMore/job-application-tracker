@@ -13,6 +13,7 @@ import UrlInput from '../MyComponents/UrlInput';
 import { RichTextEditor } from '../MyComponents/CustomTextField';
 import { faPlus, faTimes, faSave, faTimes as faCancel } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/form.module.css';
+import { strings } from '../locals';
 
 const ApplicationForm: React.FC = () => {
   const navigate = useNavigate();
@@ -159,62 +160,62 @@ const ApplicationForm: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.header}>
-          <h1>{isEditing ? 'Edit Application' : 'Add New Application'}</h1>
-          <p>{isEditing ? 'Update your job application details' : 'Track your new job application'}</p>
+          <h1>{isEditing ? strings.dashboard.table.actions.edit : strings.dashboard.table.actions.add}</h1>
+          <p>{isEditing ? strings.dashboard.table.actions.editSubtitle : strings.dashboard.table.actions.addSubtitle}</p>
         </div>
         {error && <div className={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit} className={`${styles.form} ${loading ? styles.loading : ''}`}>
           <div className={styles.formGrid}>
             <TextInput
-              label="Company Name"
+              label={strings.dashboard.table.headers.company}
               value={formData.companyName || ''}
               onChange={e => handleInputChange('companyName', e.target.value)}
               required
             />
             <TextInput
-              label="Job Title"
+              label={strings.dashboard.table.headers.jobTitle}
               value={formData.jobTitle || ''}
               onChange={e => handleInputChange('jobTitle', e.target.value)}
               required
             />
             <Select
-              label="Job Type"
+              label={strings.dashboard.table.headers.type}
               options={JOB_TYPES}
               value={formData.jobType || 'full-time'}
               onChange={(value) => handleInputChange('jobType', value)}
               required
             />
             <TextInput
-              label="Location"
+              label={strings.dashboard.table.headers.location}
               value={formData.location || ''}
               onChange={e => handleInputChange('location', e.target.value)}
               required
             />
             <DatePicker
-              label="Date Applied"
+              label={strings.dashboard.table.headers.dateApplied}
               value={formData.dateApplied || ''}
               onChange={e => handleInputChange('dateApplied', e.target.value)}
               max={new Date().toISOString().split('T')[0]}
               required
             />
             <Select
-              label="Status"
+              label={strings.dashboard.table.headers.status}
               options={APPLICATION_STATUS}
               value={formData.status || 'applied'}
               onChange={(value) => handleInputChange('status', value)}
               required
             />
             <UrlInput
-              label="Job URL"
+              label={strings.dashboard.table.headers.jobUrl}
               value={formData.jobUrl || ''}
               onChange={e => handleInputChange('jobUrl', e.target.value)}
-              placeholder="https://example.com/job-posting"
+              placeholder={strings.dashboard.table.headers.jobUrlPlaceholder}
             />
             <UrlInput
-              label="Meeting URL"
+              label={strings.dashboard.table.headers.meetingUrl}
               value={formData.meetingUrl || ''}
               onChange={e => handleInputChange('meetingUrl', e.target.value)}
-              placeholder="https://meet.example.com"
+              placeholder={strings.dashboard.table.headers.meetingUrlPlaceholder}
             />
             <div className={styles.otherUrls}>
               <label>Other URLs</label>
@@ -257,21 +258,21 @@ const ApplicationForm: React.FC = () => {
             </div>
             <div className={styles.textAreaSection}>
               <RichTextEditor
-                label="Job Description"
+                label={strings.dashboard.table.headers.jobDescription}
                 value={formData.jobDescription || ''}
                 onChange={(value) => handleInputChange('jobDescription', value)}
-                placeholder="Enter the job description"
+                placeholder={strings.dashboard.table.headers.jobDescriptionPlaceholder}
               />
               <TextArea
-                label="Notes"
+                label={strings.dashboard.table.headers.notes}
                 value={formData.notes || ''}
                 onChange={e => handleInputChange('notes', e.target.value)}
-                placeholder="Add any additional notes or comments"
+                placeholder={strings.dashboard.table.headers.notesPlaceholder}
               />
             </div>
             <div className={styles.buttons}>
               <Button type="submit" icon={faSave} isLoading={loading}>
-                {isEditing ? 'Update Application' : 'Add Application'}
+                {isEditing ? strings.dashboard.table.actions.update : strings.dashboard.table.actions.add}
               </Button>
               <Button
                 type="button"
@@ -279,7 +280,7 @@ const ApplicationForm: React.FC = () => {
                 icon={faCancel}
                 onClick={() => navigate('/home')}
               >
-                Cancel
+                {strings.form.validation.cancel || 'Cancel'}
               </Button>
             </div>
           </div>
