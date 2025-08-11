@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
+import { APPLICATION_STATUS, JOB_TYPES } from '../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPen,
@@ -100,6 +101,31 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     setModalOpen(false);
   };
 
+  const getStatusLabel = (status: string) => {
+    return APPLICATION_STATUS.find(s => s.value === status)?.label || status;
+  };
+
+  const getJobTypeLabel = (jobType: string) => {
+    return JOB_TYPES.find(type => type.value === jobType)?.label || jobType;
+  };
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'application-pending':
+        return styles.applicationPending;
+      case 'applied':
+        return styles.applied;
+      case 'interviewing':
+        return styles.interviewing;
+      case 'rejected':
+        return styles.rejected;
+      case 'accepted':
+        return styles.accepted;
+      default:
+        return styles.applicationPending;
+    }
+  };
+
   const filteredAndSortedApplications = useMemo(() => {
     return applications
       .filter((app) => {
@@ -156,7 +182,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         <div className={styles.jobTypeFilter}>
           <Select
             label={strings.dashboard.filters.jobType.label}
-            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: type }))]}
+            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: getJobTypeLabel(type) }))]}
             value={filterJobType}
             onChange={value => setFilterJobType(value)}
             className={styles.select}
@@ -226,12 +252,15 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
             >
               <td>{app.companyName}</td>
               <td>{app.jobTitle}</td>
-              <td>{app.jobType}</td>
+              <td>{getJobTypeLabel(app.jobType)}</td>
               <td>{app.location}</td>
               <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
               <td>
-                <span className={`${styles.status} ${styles[app.status]}`}>
-                  {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                <span 
+                  className={`${styles.status} ${getStatusClass(app.status)}`}
+                  data-status={app.status}
+                >
+                  {getStatusLabel(app.status)}
                 </span>
               </td>
               <td className={styles.actions} onClick={(e) => e.stopPropagation()}>
