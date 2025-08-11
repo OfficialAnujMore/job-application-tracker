@@ -3,19 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
+import { APPLICATION_STATUS, JOB_TYPES } from '../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch,
-  faBriefcase,
-  faCalendar,
   faPen,
   faTrash,
-  faCheck,
-  faTimes,
-  faFileExcel,
-  faUndo
 } from '@fortawesome/free-solid-svg-icons';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import styles from '../styles/applicationTable.module.css';
 import TextInput from './TextInput';
 import DatePicker from './DatePicker';
@@ -31,7 +25,7 @@ type SortField = 'companyName' | 'dateApplied' | 'status' | 'jobType';
 type SortOrder = 'asc' | 'desc';
 
 const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => {
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  // const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [sortField, setSortField] = useState<SortField>('dateApplied');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +39,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
   const handleDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'applications', id));
-      setDeleteConfirm(null);
+      // setDeleteConfirm(null);
     } catch (error) {
       console.error('Error deleting application:', error);
     }
@@ -60,36 +54,36 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
     }
   };
 
-  const resetFilters = () => {
-    setSearchTerm('');
-    setFilterJobType('');
-    setStartDate('');
-    setEndDate('');
-  };
+  // const resetFilters = () => {
+  //   setSearchTerm('');
+  //   setFilterJobType('');
+  //   setStartDate('');
+  //   setEndDate('');
+  // };
 
-  const exportToExcel = () => {
-    const dataToExport = filteredAndSortedApplications.map(app => ({
-      'Company Name': app.companyName,
-      'Job Title': app.jobTitle,
-      'Job Type': app.jobType,
-      'Location': app.location,
-      'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
-      'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
-      'Job URL': app.jobUrl || '',
-      'Meeting URL': app.meetingUrl || '',
-      'Job Description': app.jobDescription || '',
-      'Notes': app.notes || '',
-      'Created At': new Date(app.createdAt).toLocaleDateString(),
-      'Updated At': new Date(app.updatedAt).toLocaleDateString()
-    }));
+  // const exportToExcel = () => {
+  //   const dataToExport = filteredAndSortedApplications.map(app => ({
+  //     'Company Name': app.companyName,
+  //     'Job Title': app.jobTitle,
+  //     'Job Type': app.jobType,
+  //     'Location': app.location,
+  //     'Date Applied': new Date(app.dateApplied).toLocaleDateString(),
+  //     'Status': app.status.charAt(0).toUpperCase() + app.status.slice(1),
+  //     'Job URL': app.jobUrl || '',
+  //     'Meeting URL': app.meetingUrl || '',
+  //     'Job Description': app.jobDescription || '',
+  //     'Notes': app.notes || '',
+  //     'Created At': new Date(app.createdAt).toLocaleDateString(),
+  //     'Updated At': new Date(app.updatedAt).toLocaleDateString()
+  //   }));
 
-    const ws = XLSX.utils.json_to_sheet(dataToExport);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
+  //   const ws = XLSX.utils.json_to_sheet(dataToExport);
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Job Applications');
     
-    const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
-    XLSX.writeFile(wb, fileName);
-  };
+  //   const fileName = `job-applications-${new Date().toISOString().split('T')[0]}.xlsx`;
+  //   XLSX.writeFile(wb, fileName);
+  // };
 
   const handleDeleteRequest = (id: string) => {
     setPendingDeleteId(id);
@@ -105,6 +99,31 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
   const handleDeleteCancel = () => {
     setPendingDeleteId(null);
     setModalOpen(false);
+  };
+
+  const getStatusLabel = (status: string) => {
+    return APPLICATION_STATUS.find(s => s.value === status)?.label || status;
+  };
+
+  const getJobTypeLabel = (jobType: string) => {
+    return JOB_TYPES.find(type => type.value === jobType)?.label || jobType;
+  };
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'application-pending':
+        return styles.applicationPending;
+      case 'applied':
+        return styles.applied;
+      case 'interviewing':
+        return styles.interviewing;
+      case 'rejected':
+        return styles.rejected;
+      case 'accepted':
+        return styles.accepted;
+      default:
+        return styles.applicationPending;
+    }
   };
 
   const filteredAndSortedApplications = useMemo(() => {
@@ -163,7 +182,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
         <div className={styles.jobTypeFilter}>
           <Select
             label={strings.dashboard.filters.jobType.label}
-            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: type }))]}
+            options={[{ value: '', label: strings.dashboard.filters.jobType.label }, ...jobTypes.map(type => ({ value: type, label: getJobTypeLabel(type) }))]}
             value={filterJobType}
             onChange={value => setFilterJobType(value)}
             className={styles.select}
@@ -233,12 +252,15 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications }) => 
             >
               <td>{app.companyName}</td>
               <td>{app.jobTitle}</td>
-              <td>{app.jobType}</td>
+              <td>{getJobTypeLabel(app.jobType)}</td>
               <td>{app.location}</td>
               <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
               <td>
-                <span className={`${styles.status} ${styles[app.status]}`}>
-                  {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                <span 
+                  className={`${styles.status} ${getStatusClass(app.status)}`}
+                  data-status={app.status}
+                >
+                  {getStatusLabel(app.status)}
                 </span>
               </td>
               <td className={styles.actions} onClick={(e) => e.stopPropagation()}>

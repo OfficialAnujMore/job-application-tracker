@@ -5,7 +5,7 @@ import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
 import { JOB_TYPES, APPLICATION_STATUS } from '../constants';
 import Button from '../MyComponents/Button';
-import { faArrowLeft, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/viewApplication.module.css';
 import { strings } from '../locals';
 
@@ -54,6 +54,8 @@ const ViewApplication: React.FC = () => {
     switch (status) {
       case 'applied':
         return styles.applied;
+      case 'application-pending':
+        return styles.applicationPending;
       case 'interviewing':
         return styles.interviewing;
       case 'rejected':
@@ -61,7 +63,7 @@ const ViewApplication: React.FC = () => {
       case 'accepted':
         return styles.accepted;
       default:
-        return '';
+        return styles.applicationPending;
     }
   };
 
@@ -128,7 +130,10 @@ const ViewApplication: React.FC = () => {
           <h1 className={styles.companyName}>{application.companyName}</h1>
           <h2 className={styles.jobTitle}>{application.jobTitle}</h2>
           <div className={styles.statusBadge}>
-            <span className={`${styles.status} ${getStatusColor(application.status)}`}>
+            <span 
+              className={`${styles.status} ${getStatusColor(application.status)}`}
+              data-status={application.status}
+            >
               {getStatusLabel(application.status)}
             </span>
           </div>
@@ -193,10 +198,14 @@ const ViewApplication: React.FC = () => {
         {application.jobDescription && (
           <div className={styles.section}>
             <h3>Job Description</h3>
-            <div 
-              className={styles.jobDescription}
-              dangerouslySetInnerHTML={{ __html: application.jobDescription }}
-            />
+            <div className={styles.jobDescription}>
+              {application.jobDescription.split('\n').map((line, index, array) => (
+                <React.Fragment key={index}>
+                  {line}
+                  {index < array.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         )}
 
@@ -204,7 +213,12 @@ const ViewApplication: React.FC = () => {
           <div className={styles.section}>
             <h3>Notes</h3>
             <div className={styles.notes}>
-              {application.notes}
+              {application.notes.split('\n').map((line, index, array) => (
+                <React.Fragment key={index}>
+                  {line}
+                  {index < array.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         )}

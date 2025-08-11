@@ -1,12 +1,12 @@
 export const JOB_TYPES = [
   { value: 'full-time', label: 'Full Time' },
   { value: 'part-time', label: 'Part Time' },
-  { value: 'contract', label: 'Contract' },
   { value: 'internship', label: 'Internship' },
   { value: 'remote', label: 'Remote' },
 ] as const;
 
 export const APPLICATION_STATUS = [
+  { value: 'application-pending', label: 'Application Pending' },
   { value: 'applied', label: 'Applied' },
   { value: 'interviewing', label: 'Interviewing' },
   { value: 'rejected', label: 'Rejected' },
