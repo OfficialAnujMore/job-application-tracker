@@ -63,6 +63,12 @@
   color: white;
 }
 
+.applicationPending,
+[data-status="application-pending"] {
+  background-color: #8b5cf6;
+  color: white;
+}
+
 .interviewing {
   background-color: #f59e0b;
   color: white;
@@ -157,6 +163,7 @@
   border: 1px solid #e2e8f0;
   line-height: 1.6;
   color: #1f2937;
+  white-space: pre-wrap;
 }
 
 .jobDescription h1,

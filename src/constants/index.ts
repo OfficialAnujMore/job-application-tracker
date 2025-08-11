@@ -6,8 +6,8 @@ export const JOB_TYPES = [
 ] as const;
 
 export const APPLICATION_STATUS = [
+  { value: 'application-pending', label: 'Application Pending' },
   { value: 'applied', label: 'Applied' },
-  { value: 'applicationPending', label: 'Application Pending' },
   { value: 'interviewing', label: 'Interviewing' },
   { value: 'rejected', label: 'Rejected' },
   { value: 'accepted', label: 'Accepted' },

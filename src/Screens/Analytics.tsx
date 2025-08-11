@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../Firebase/firebase';
 import { JobApplication } from '../types';
+import { JOB_TYPES } from '../constants';
 import Header from '../MyComponents/Header';
 import Splash from '../MyComponents/Splash';
 import styles from '../styles/dashboard.module.css';
@@ -12,6 +13,10 @@ const Analytics: React.FC = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const getJobTypeLabel = (jobType: string) => {
+    return JOB_TYPES.find(type => type.value === jobType)?.label || jobType;
+  };
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user) => {
@@ -152,7 +157,7 @@ const Analytics: React.FC = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {Object.entries(analytics.jobTypeCounts).map(([type, count]) => (
                   <div key={type} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ textTransform: 'capitalize' }}>{type}</span>
+                    <span>{getJobTypeLabel(type)}</span>
                     <span style={{ fontWeight: 'bold', color: '#007bff' }}>{count}</span>
                   </div>
                 ))}
